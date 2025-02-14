@@ -4,6 +4,7 @@
 
 ## Exercise 1
 
+```
 Write a Java application which can manage survey data. The application needs to fulfill the following requirements:
 
 • A survey can have multiple Questions, and can be taken by multiple candidates. A survey also has general survey information such as Title, Topic, Description.
@@ -25,6 +26,7 @@ Write a Java application which can manage survey data. The application needs to 
      Must have at least 10 questions.
      Can have at most 40 questions.
      Each question has to be unique.
+```
 
 ### Exercise 1 - UML
 
