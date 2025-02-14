@@ -2,4 +2,4 @@
 
 ### EXERCISE 1 SCHEMA
 
-![Exercise 1](src/main/resources/exercise1-uml.png)
+![Exercise 1](src/main/resources/custom-data/exercise1-uml.png)
