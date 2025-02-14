@@ -1,4 +1,4 @@
-/home/btabaku/.jdks/openjdk-23.0.2/bin/java -javaagent:/home/btabaku/.cache/JetBrains/RemoteDev/dist/0ede9c1cc5df2_ideaIU-2024.3.3/lib/idea_rt.jar=38983:/home/btabaku/.cache/JetBrains/RemoteDev/dist/0ede9c1cc5df2_ideaIU-2024.3.3/bin -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath /home/btabaku/dev/lhind-java-internship/target/classes com.internship.session1.Main
+/home/btabaku/.jdks/openjdk-23.0.2/bin/java -javaagent:/home/btabaku/.cache/JetBrains/RemoteDev/dist/0ede9c1cc5df2_ideaIU-2024.3.3/lib/idea_rt.jar=38003:/home/btabaku/.cache/JetBrains/RemoteDev/dist/0ede9c1cc5df2_ideaIU-2024.3.3/bin -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath /home/btabaku/dev/lhind-java-internship/target/classes:/home/btabaku/.m2/repository/org/apache/commons/commons-lang3/3.17.0/commons-lang3-3.17.0.jar com.internship.session1.Main
 Question: Do you agree with the statement?
 Agree: 2
 Slightly Agree: 1
@@ -180,5 +180,7 @@ Fatos Rama: Agree
 Gentiana Leka: Agree
 
 Most given answer: Agree
-Answers by Arben: Is CSS used for styling?: Agree, Is HTML a programming language?: Slightly Disagree, Is Git a version control system?: Agree, Is water wet?: Slightly Disagree, Is Windows an operating system?: Agree, Do you agree with the statement?: Agree, Is Python a snake?: Disagree, Is fire hot?: Disagree, Is C++ an extension of C?: Agree, Is ice cold?: Agree, Is Java a programming language?: Agree, Is Linux an operating system?: Agree, Is the sky blue?: Slightly Agree, Is JavaScript used for web development?: Agree, Is SQL used for databases?: Agree,
-Candidate with most surveys: Arben
+Answers by Arben: Is Java a programming language?: Agree, Is CSS used for styling?: Agree, Is Linux an operating system?: Agree, Do you agree with the statement?: Agree, Is water wet?: Slightly Disagree, Is C++ an extension of C?: Agree, Is fire hot?: Disagree, Is HTML a programming language?: Slightly Disagree, Is ice cold?: Agree, Is Windows an operating system?: Agree, Is JavaScript used for web development?: Agree, Is Git a version control system?: Agree, Is the sky blue?: Slightly Agree, Is Python a snake?: Disagree, Is SQL used for databases?: Agree,
+Candidate with most surveys: Dritan
+
+Process finished with exit code 0
