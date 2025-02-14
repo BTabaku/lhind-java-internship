@@ -1,5 +1,5 @@
 ## LHIND java internship
 
-### EXERCISE 1 SCHEMA
+### Exercise 1 - UML
 
 ![Exercise 1](src/main/resources/custom-data/exercise1-uml.png)
