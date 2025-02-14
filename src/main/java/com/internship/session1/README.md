@@ -28,4 +28,4 @@ Write a Java application which can manage survey data. The application needs to 
 
 ### Exercise 1 - UML
 
-![Exercise 1 UML](../../resources/custom-data/exercise1-uml.png)
+![Exercise 1 UML](../../../resources/custom-data/exercise1-uml.png)
