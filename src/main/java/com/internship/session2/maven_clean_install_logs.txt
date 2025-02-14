@@ -1,0 +1,41 @@
+[btabaku@eastops lhind-java-internship]$ mvn clean install
+[INFO] Scanning for projects...
+[INFO]
+[INFO] ----------------< com.internship:lhind-java-internship >----------------
+[INFO] Building lhind-java-internship 1.0-SNAPSHOT
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO]
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ lhind-java-internship ---
+[INFO] Deleting /home/btabaku/dev/lhind-java-internship/target
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ lhind-java-internship ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ lhind-java-internship ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 6 source files to /home/btabaku/dev/lhind-java-internship/target/classes
+[INFO]
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ lhind-java-internship ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/btabaku/dev/lhind-java-internship/src/test/resources
+[INFO]
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ lhind-java-internship ---
+[INFO] Changes detected - recompiling the module!
+[INFO]
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ lhind-java-internship ---
+[INFO]
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ lhind-java-internship ---
+[INFO] Building jar: /home/btabaku/dev/lhind-java-internship/target/lhind-java-internship-1.0-SNAPSHOT.jar
+[INFO]
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ lhind-java-internship ---
+[INFO] Installing /home/btabaku/dev/lhind-java-internship/target/lhind-java-internship-1.0-SNAPSHOT.jar to /home/btabaku/.m2/repository/com/internship/lhind-java-internship/1.0-SNAPSHOT/lhind-java-internship-1.0-SNAPSHOT.jar
+[INFO] Installing /home/btabaku/dev/lhind-java-internship/pom.xml to /home/btabaku/.m2/repository/com/internship/lhind-java-internship/1.0-SNAPSHOT/lhind-java-internship-1.0-SNAPSHOT.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  11.502 s
+[INFO] Finished at: 2025-02-14T15:41:51+01:00
+[INFO] ------------------------------------------------------------------------
+[btabaku@eastops lhind-java-internship]$
+
