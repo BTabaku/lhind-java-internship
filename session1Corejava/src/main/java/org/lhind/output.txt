@@ -1,0 +1,186 @@
+/home/btabaku/.jdks/openjdk-23.0.2/bin/java -javaagent:/home/btabaku/.cache/JetBrains/RemoteDev/dist/0ede9c1cc5df2_ideaIU-2024.3.3/lib/idea_rt.jar=38003:/home/btabaku/.cache/JetBrains/RemoteDev/dist/0ede9c1cc5df2_ideaIU-2024.3.3/bin -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath /home/btabaku/dev/lhind-java-internship/target/classes:/home/btabaku/.m2/repository/org/apache/commons/commons-lang3/3.17.0/commons-lang3-3.17.0.jar com.internship.session1.Main
+Question: Do you agree with the statement?
+Agree: 2
+Slightly Agree: 1
+Slightly Disagree: 1
+Disagree: 2
+Arben Hoxha: Agree
+Blerina Krasniqi: Disagree
+Dritan Berisha: Slightly Agree
+Elira Gashi: Slightly Disagree
+Fatos Rama: Agree
+Gentiana Leka: Disagree
+
+Question: Is the sky blue?
+Agree: 2
+Slightly Agree: 1
+Slightly Disagree: 1
+Disagree: 2
+Arben Hoxha: Slightly Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Slightly Disagree
+Elira Gashi: Disagree
+Fatos Rama: Agree
+Gentiana Leka: Disagree
+
+Question: Is water wet?
+Agree: 2
+Slightly Agree: 1
+Slightly Disagree: 1
+Disagree: 2
+Arben Hoxha: Slightly Disagree
+Blerina Krasniqi: Slightly Agree
+Dritan Berisha: Disagree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Disagree
+
+Question: Is fire hot?
+Agree: 2
+Slightly Agree: 1
+Slightly Disagree: 1
+Disagree: 2
+Arben Hoxha: Disagree
+Blerina Krasniqi: Slightly Disagree
+Dritan Berisha: Agree
+Elira Gashi: Slightly Agree
+Fatos Rama: Agree
+Gentiana Leka: Disagree
+
+Question: Is ice cold?
+Agree: 2
+Slightly Agree: 1
+Slightly Disagree: 1
+Disagree: 2
+Arben Hoxha: Agree
+Blerina Krasniqi: Disagree
+Dritan Berisha: Slightly Agree
+Elira Gashi: Slightly Disagree
+Fatos Rama: Agree
+Gentiana Leka: Disagree
+
+Question: Is Java a programming language?
+Agree: 6
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 0
+Arben Hoxha: Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Agree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Agree
+
+Question: Is Python a snake?
+Agree: 0
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 6
+Arben Hoxha: Disagree
+Blerina Krasniqi: Disagree
+Dritan Berisha: Disagree
+Elira Gashi: Disagree
+Fatos Rama: Disagree
+Gentiana Leka: Disagree
+
+Question: Is HTML a programming language?
+Agree: 0
+Slightly Agree: 0
+Slightly Disagree: 6
+Disagree: 0
+Arben Hoxha: Slightly Disagree
+Blerina Krasniqi: Slightly Disagree
+Dritan Berisha: Slightly Disagree
+Elira Gashi: Slightly Disagree
+Fatos Rama: Slightly Disagree
+Gentiana Leka: Slightly Disagree
+
+Question: Is CSS used for styling?
+Agree: 6
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 0
+Arben Hoxha: Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Agree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Agree
+
+Question: Is JavaScript used for web development?
+Agree: 6
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 0
+Arben Hoxha: Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Agree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Agree
+
+Question: Is C++ an extension of C?
+Agree: 6
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 0
+Arben Hoxha: Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Agree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Agree
+
+Question: Is SQL used for databases?
+Agree: 6
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 0
+Arben Hoxha: Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Agree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Agree
+
+Question: Is Git a version control system?
+Agree: 6
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 0
+Arben Hoxha: Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Agree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Agree
+
+Question: Is Linux an operating system?
+Agree: 6
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 0
+Arben Hoxha: Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Agree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Agree
+
+Question: Is Windows an operating system?
+Agree: 6
+Slightly Agree: 0
+Slightly Disagree: 0
+Disagree: 0
+Arben Hoxha: Agree
+Blerina Krasniqi: Agree
+Dritan Berisha: Agree
+Elira Gashi: Agree
+Fatos Rama: Agree
+Gentiana Leka: Agree
+
+Most given answer: Agree
+Answers by Arben: Is Java a programming language?: Agree, Is CSS used for styling?: Agree, Is Linux an operating system?: Agree, Do you agree with the statement?: Agree, Is water wet?: Slightly Disagree, Is C++ an extension of C?: Agree, Is fire hot?: Disagree, Is HTML a programming language?: Slightly Disagree, Is ice cold?: Agree, Is Windows an operating system?: Agree, Is JavaScript used for web development?: Agree, Is Git a version control system?: Agree, Is the sky blue?: Slightly Agree, Is Python a snake?: Disagree, Is SQL used for databases?: Agree,
+Candidate with most surveys: Dritan
+
+Process finished with exit code 0
