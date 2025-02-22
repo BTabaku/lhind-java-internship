@@ -5,7 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.lhind</groupId>
-    <artifactId>springboot-session2</artifactId>
+    <artifactId>session4JDBC</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
 </project>
