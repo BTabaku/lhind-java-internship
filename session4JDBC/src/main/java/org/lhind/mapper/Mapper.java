@@ -1,4 +1,4 @@
-package com.internship.session4jdbc.mapper;
+package org.lhind.mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

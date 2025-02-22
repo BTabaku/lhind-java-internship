@@ -1,9 +1,9 @@
-package com.internship.session4jdbc.repository;
+package org.lhind.repository;
 
-import com.internship.session4jdbc.mapper.EmployeeMapper;
-import com.internship.session4jdbc.model.Employee;
-import com.internship.session4jdbc.model.enums.EmployeeQuery;
-import com.internship.session4jdbc.util.JdbcConnection;
+import org.lhind.mapper.EmployeeMapper;
+import org.lhind.model.Employee;
+import org.lhind.model.enums.EmployeeQuery;
+import org.lhind.util.JdbcConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

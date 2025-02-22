@@ -1,6 +1,6 @@
-package com.internship.session4jdbc.util;
+package org.lhind.util;
 
-import com.internship.session4jdbc.model.DBProperties;
+import org.lhind.model.DBProperties;
 
 import java.io.FileInputStream;
 import java.io.IOException;

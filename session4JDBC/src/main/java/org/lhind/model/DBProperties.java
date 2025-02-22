@@ -1,4 +1,4 @@
-package com.internship.session4jdbc.model;
+package org.lhind.model;
 
 public class DBProperties {
     private String url;

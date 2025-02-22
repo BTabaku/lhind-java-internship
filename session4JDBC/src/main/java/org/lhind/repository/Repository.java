@@ -1,4 +1,4 @@
-package com.internship.session4jdbc.repository;
+package org.lhind.repository;
 
 import java.util.List;
 import java.util.Optional;

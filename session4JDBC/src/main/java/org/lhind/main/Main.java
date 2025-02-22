@@ -1,8 +1,8 @@
-package com.internship.session4jdbc.main;
+package org.lhind.main;
 
-import com.internship.session4jdbc.util.JdbcConnection;
-import com.internship.session4jdbc.model.Employee;
-import com.internship.session4jdbc.repository.EmployeeRepository;
+import org.lhind.util.JdbcConnection;
+import org.lhind.model.Employee;
+import org.lhind.repository.EmployeeRepository;
 
 
 import java.sql.Connection;
@@ -12,15 +12,15 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("App Started!");
 
-//        try (Connection connection = JdbcConnection.connect()) {
-//            if (connection != null && !connection.isClosed()) {
-//                System.out.println("Connection successful!");
-//            } else {
-//                System.out.println("Failed to establish connection.");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try (Connection connection = JdbcConnection.connect()) {
+            if (connection != null && !connection.isClosed()) {
+                System.out.println("Connection successful!");
+            } else {
+                System.out.println("Failed to establish connection.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         EmployeeRepository employeeRepository = new EmployeeRepository();
 

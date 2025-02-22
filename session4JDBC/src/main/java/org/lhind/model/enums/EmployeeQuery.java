@@ -1,4 +1,4 @@
-package com.internship.session4jdbc.model.enums;
+package org.lhind.model.enums;
 
 public enum EmployeeQuery {
 

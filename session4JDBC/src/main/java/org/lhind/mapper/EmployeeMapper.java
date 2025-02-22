@@ -1,9 +1,9 @@
-package com.internship.session4jdbc.mapper;
+package org.lhind.mapper;
 
-import com.internship.session4jdbc.model.Employee;
-import com.internship.session4jdbc.mapper.Mapper;
+import org.lhind.model.Employee;
+import org.lhind.mapper.Mapper;
 
-import com.internship.session4jdbc.mapper.EmployeeMapper;
+import org.lhind.mapper.EmployeeMapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
