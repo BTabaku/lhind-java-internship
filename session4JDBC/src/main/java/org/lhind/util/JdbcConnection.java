@@ -4,10 +4,13 @@ import org.lhind.model.DBProperties;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+
+import static java.sql.DriverManager.getConnection;
 
 public final class JdbcConnection {
 
@@ -16,15 +19,18 @@ public final class JdbcConnection {
 
     public static Connection connect() {
         Connection connection = null;
-        try (final FileInputStream stream = new FileInputStream("src/main/resources/db.properties")) {
-            final Properties properties = new Properties();
+        try (InputStream stream = JdbcConnection.class.getClassLoader().getResourceAsStream("db.properties")) {
+            if (stream == null) {
+                throw new IOException("Could not find db.properties");
+            }
+
+            Properties properties = new Properties();
             properties.load(stream);
-            final DBProperties db = getDbProperties(properties);
-            connection = DriverManager.getConnection(
-                    db.getUrl(),
-                    db.getUser(),
-                    db.getPassword()
-            );
+
+            DBProperties dbProperties = getDbProperties(properties);
+
+            connection = DriverManager.getConnection(dbProperties.getUrl(), dbProperties.getUser(), dbProperties.getPassword());
+
         } catch (IOException | SQLException e) {
             System.err.println(e.getMessage());
         }
