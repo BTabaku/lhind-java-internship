@@ -1,7 +1,6 @@
 package org.lhind.main;
 
 import org.lhind.util.JdbcConnection;
-import org.lhind.model.Employee;
 import org.lhind.repository.EmployeeRepository;
 
 
