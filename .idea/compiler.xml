@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="session3SQL" />
+        <module name="session5JpaHibernetes" />
         <module name="session1Corejava" />
         <module name="session2Maven" />
         <module name="session4JDBC" />
@@ -14,7 +15,9 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="hibernate-session3" target="1.8" />
+      <module name="lhind-java-internship" target="17" />
       <module name="session1-core-java" target="1.8" />
+      <module name="session5jpa" target="17" />
       <module name="springboot-session2" target="1.8" />
     </bytecodeTargetLevel>
   </component>

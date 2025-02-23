@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/session2Maven/pom.xml" />
         <option value="$PROJECT_DIR$/session3SQL/pom.xml" />
         <option value="$PROJECT_DIR$/session4JDBC/pom.xml" />
+        <option value="$PROJECT_DIR$/session5JpaHibernetes/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -21,7 +22,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" project-jdk-name="corretto-17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_23" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
