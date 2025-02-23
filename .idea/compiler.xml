@@ -10,6 +10,7 @@
         <module name="session5JpaHibernetes" />
         <module name="session1Corejava" />
         <module name="session2Maven" />
+        <module name="session5JpaHibernate" />
         <module name="session4JDBC" />
       </profile>
     </annotationProcessing>

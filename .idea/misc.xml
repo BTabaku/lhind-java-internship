@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/session3SQL/pom.xml" />
         <option value="$PROJECT_DIR$/session4JDBC/pom.xml" />
         <option value="$PROJECT_DIR$/session5JpaHibernetes/pom.xml" />
+        <option value="$PROJECT_DIR$/session5JpaHibernate/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
