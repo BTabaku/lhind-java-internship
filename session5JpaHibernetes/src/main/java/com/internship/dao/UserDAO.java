@@ -25,6 +25,7 @@ public class UserDAO {
         } finally {
             em.close();
         }
+        return null;
     }
 
     public void updateUser(User user) {
