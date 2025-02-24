@@ -3,7 +3,10 @@ package com.internship.entities;
 import javax.persistence.*;
 
 @Entity
+
+// Add getter/setter
 @Table(name = "user")
+
 public class User {
 
     @Id
@@ -28,6 +31,19 @@ public class User {
         this.password = password;
         this.role = role;
     }
+
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserDetails userDetails;
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
+
 
     public int getId() {
         return id;

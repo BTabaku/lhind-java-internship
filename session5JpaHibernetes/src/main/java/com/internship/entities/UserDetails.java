@@ -22,15 +22,22 @@ public class UserDetails {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public UserDetails() {
     }
 
-    public UserDetails(String firstName, String lastName, String email, String phoneNumber) {
+    public UserDetails(String firstName, String lastName, String email, String phoneNumber, User user) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.user = user;
     }
+
 
     public int getId() {
         return id;
