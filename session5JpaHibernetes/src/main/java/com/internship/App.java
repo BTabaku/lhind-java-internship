@@ -1,40 +1,69 @@
 package com.internship;
 
-import com.internship.entities.User;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import com.internship.dao.*;
+import com.internship.entities.*;
 
 public class App {
     public static void main(String[] args) {
-        // Obtain the EntityManagerFactory using the persistence unit defined in persistence.xml
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("internshipPU");
-        EntityManager em = emf.createEntityManager();
+        UserDAO userDAO = new UserDAO();
+        FlightDAO flightDAO = new FlightDAO();
+        BookingDAO bookingDAO = new BookingDAO();
+        UserDetailsDAO userDetailsDAO = new UserDetailsDAO();
 
-        try {
-            // Begin a transaction
-            em.getTransaction().begin();
+        // Create dummy users
+        User user1 = new User("john", "pass123", "customer");
+        User user2 = new User("emma", "pass456", "admin");
+        userDAO.createUser(user1);
+        userDAO.createUser(user2);
 
-            // Create and persist a new entity instance.
-            // Ensure that the User entity exists and has proper JPA annotations.
-            User newUser = new User();
+        // Create user details
+        UserDetails details1 = new UserDetails("John", "Doe", "john@test.com", "555-1234", user1);
+        UserDetails details2 = new UserDetails("Emma", "Smith", "emma@test.com", "555-5678", user2);
+        userDetailsDAO.saveUserDetails(details1);
+        userDetailsDAO.saveUserDetails(details2);
 
-            // Set required fields in the newUser entity (adjust according to your entity definition).
-            newUser.setUsername("user01");
+        // Create flights
+        Flight flight1 = new Flight();
+        flight1.setOrigin("JFK");
+        flight1.setDestination("LAX");
+        flight1.setAirline("Delta");
+        flight1.setFlightNumber("DL123");
+        flight1.setDepartureDate("2024-03-20");
+        flight1.setArrivalDate("2024-03-20");
+        flight1.setStatus("On Time");
 
-            // Persist the entity. This triggers Hibernate to create or update the table if needed.
-            em.persist(newUser);
+        Flight flight2 = new Flight();
+        flight2.setOrigin("LAX");
+        flight2.setDestination("ORD");
+        flight2.setAirline("United");
+        flight2.setFlightNumber("UA456");
+        flight2.setDepartureDate("2024-03-21");
+        flight2.setArrivalDate("2024-03-21");
+        flight2.setStatus("Delayed");
 
-            // Commit the transaction so changes are applied to the database
-            em.getTransaction().commit();
+        flightDAO.createFlight(flight1);
+        flightDAO.createFlight(flight2);
 
-            System.out.println("Entity persisted and tables updated (if necessary).");
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            em.close();
-            emf.close();
-        }
+        // Create bookings
+        Booking booking1 = new Booking();
+        booking1.setUser(user1);
+        booking1.setFlight(flight1);
+        booking1.setBookingDate("2024-03-15");
+        booking1.setBookingTime("10:00 AM");
+
+        Booking booking2 = new Booking();
+        booking2.setUser(user2);
+        booking2.setFlight(flight2);
+        booking2.setBookingDate("2024-03-16");
+        booking2.setBookingTime("02:30 PM");
+
+        bookingDAO.addBooking(booking1);
+        bookingDAO.addBooking(booking2);
+
+        // Cleanup
+        userDAO.close();
+        flightDAO.close();
+        bookingDAO.close();
+        userDetailsDAO.close();
     }
 }
