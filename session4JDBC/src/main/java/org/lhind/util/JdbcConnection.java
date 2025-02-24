@@ -2,15 +2,12 @@ package org.lhind.util;
 
 import org.lhind.model.DBProperties;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
-
-import static java.sql.DriverManager.getConnection;
 
 public final class JdbcConnection {
 
