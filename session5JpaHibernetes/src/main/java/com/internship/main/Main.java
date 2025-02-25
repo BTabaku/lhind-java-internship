@@ -2,18 +2,8 @@ package com.internship.main;
 
 import com.internship.model.dto.EmployeeDTO;
 import com.internship.model.dto.EmployeeDetailsDTO;
-import com.internship.model.entity.Booking;
-import com.internship.model.entity.Employee;
-import com.internship.model.entity.EmployeeDetails;
-import com.internship.model.enums.BookingStatus;
 import com.internship.model.enums.EmploymentStatus;
-import com.internship.repository.BookingRepository;
-import com.internship.repository.EmployeeRepository;
-import com.internship.repository.impl.BookingRepositoryImpl;
-import com.internship.repository.impl.EmployeeRepositoryImpl;
-import com.internship.service.EmployeeDetailsService;
 import com.internship.service.EmployeeService;
-import com.internship.service.impl.EmployeeDetailsServiceImpl;
 import com.internship.service.impl.EmployeeServiceImpl;
 
 
@@ -33,14 +23,16 @@ public class Main {
         employee.setUsername("john95");
         employee.setUsername("antowqewew");
         EmployeeDetailsDTO employeeDetailsDTO = new EmployeeDetailsDTO();
-        employeeDetailsDTO.setEmail("ani@gmail.com");
+        employeeDetailsDTO.setEmail("testmail@gmail.com");
         employeeDetailsDTO.setEmploymentDate(new Date());
         employee.setEmployeeDetailsDTO(employeeDetailsDTO);
         employeeService.saveEmployee(employee);
         List<EmployeeDTO> list = employeeService.findAllNamedQuery("John");
-        // todo EmployeeDTO employeeDTO = employeeService.findById(Long id);+
         System.out.println(list);
 
+        // Use the findById method
+        EmployeeDTO employeeDTO = employeeService.findById(1L);
+        System.out.println(employeeDTO);
     }
 
 //    public static void main(String[] args) {
