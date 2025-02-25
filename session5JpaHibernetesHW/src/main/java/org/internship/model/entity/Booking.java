@@ -49,4 +49,12 @@ public class Booking {
     public void setBookingStatus(BookingStatus bookingStatus) {
         this.bookingStatus = bookingStatus;
     }
+
+    public void setStatus(BookingStatus bookingStatus) {
+        this.bookingStatus = bookingStatus;
+    }
+
+    public BookingStatus getStatus() {
+        return bookingStatus;
+    }
 }

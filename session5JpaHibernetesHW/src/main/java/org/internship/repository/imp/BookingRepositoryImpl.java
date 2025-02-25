@@ -1,5 +1,9 @@
 package org.internship.repository.imp;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.HibernateException;
+
 import org.internship.configuration.EntityManagerConfiguration;
 import org.internship.model.entity.Booking;
 import org.internship.repository.BookingRepository;
@@ -17,12 +21,15 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public void save(Booking bookingDetails) {
 
-        try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(bookingDetails);
-            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-            entityManager.getTransaction().rollback();
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.update(booking);
+            transaction.commit();
+        } catch (HibernateException e) {
+            if (transaction != null && transaction.getStatus().canRollback()) {
+                transaction.rollback();
+            }
             e.printStackTrace();
         }
 
