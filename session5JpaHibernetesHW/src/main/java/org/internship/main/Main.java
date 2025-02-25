@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         BookingRepository bookingRepo = new BookingRepositoryImpl();
 
         // Create a new Booking using the provided constructor.
@@ -52,7 +52,7 @@ public class Main {
         // Delete the booking
         bookingRepo.delete(foundBooking);
         System.out.println("Booking deleted.");
-
+    
         // Shutdown the EntityManagerFactory when done
         EntityManagerConfiguration.shutdown();
     }

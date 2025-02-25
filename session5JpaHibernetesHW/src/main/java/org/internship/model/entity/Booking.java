@@ -45,6 +45,8 @@ public class Booking {
 
     // constructor
 
+    public Booking() {
+    }
 
     public Booking(Long id, String origin, String destination, String airline, String flightNumber, LocalDateTime departureDate, LocalDateTime arrivalDate, BookingStatus status) {
         this.id = id;
@@ -56,6 +58,7 @@ public class Booking {
         this.arrivalDate = arrivalDate;
         this.status = status;
     }
+
 
     public Long getId() {
         return id;
