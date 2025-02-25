@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class BookingRepositoryImpl implements BookingRepository {
-
     private final EntityManager entityManager;
 
     public BookingRepositoryImpl() {
