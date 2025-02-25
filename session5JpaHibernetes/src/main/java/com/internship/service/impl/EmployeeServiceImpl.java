@@ -34,4 +34,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeRepository.findAllNamedQuery(username).stream().map(employeeMapper::toDto).collect(Collectors.toList());
     }
 
+    @Override
+    public EmployeeDTO findById(Long id) {
+        return employeeRepository.findById(id).map(employeeMapper::toDto).orElse(null);
+    }
+
 }
