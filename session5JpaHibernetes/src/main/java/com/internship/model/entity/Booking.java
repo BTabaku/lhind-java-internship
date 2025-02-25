@@ -1,4 +1,4 @@
-package com.internship.model.dto.entity;
+package com.lhind.model.entity;
 
 import com.lhind.model.enums.BookingStatus;
 

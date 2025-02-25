@@ -1,8 +1,10 @@
 package com.lhind.mapper;
 
 import com.lhind.model.dto.EmployeeDetailsDTO;
-import com.internship.model.dto.entity.EmployeeDetails;
+import com.lhind.model.entity.EmployeeDetails;
 import com.lhind.model.enums.EmploymentStatus;
+
+import java.util.Date;
 
 public class EmployeeDetailsMapper extends AbstractMapper<EmployeeDetails, EmployeeDetailsDTO> {
 

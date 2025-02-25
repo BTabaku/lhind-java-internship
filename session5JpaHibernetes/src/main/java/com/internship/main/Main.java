@@ -2,6 +2,9 @@ package com.lhind.main;
 
 import com.lhind.model.dto.EmployeeDTO;
 import com.lhind.model.dto.EmployeeDetailsDTO;
+import com.lhind.model.entity.Booking;
+import com.lhind.model.entity.Employee;
+import com.lhind.model.entity.EmployeeDetails;
 import com.lhind.model.enums.BookingStatus;
 import com.lhind.model.enums.EmploymentStatus;
 import com.lhind.repository.BookingRepository;
