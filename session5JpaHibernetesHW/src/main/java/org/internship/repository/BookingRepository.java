@@ -5,15 +5,13 @@ import org.internship.model.entity.Booking;
 import java.util.List;
 
 public interface BookingRepository {
+    void save(Booking bookingDetails);
 
-    void save(Booking booking);
     Booking findById(Long id);
-    List<Booking> findAll();
 
-    void update(Booking booking);
-    void delete(Booking booking);
+    java.util.List<Booking> findAll();
 
+    void update(Booking bookingDetails);
 
-
+    void delete(Booking bookingDetails);
 }
-

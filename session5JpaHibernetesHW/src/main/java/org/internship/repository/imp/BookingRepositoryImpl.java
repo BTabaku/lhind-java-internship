@@ -1,7 +1,7 @@
 package org.internship.repository.imp;
 
 import org.internship.configuration.EntityManagerConfiguration;
-import org.internship.model.entity.Booking;
+import org.internship.model.entity.Flight;
 import org.internship.repository.BookingRepository;
 import org.internship.util.Queries;
 
@@ -11,81 +11,40 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 
 public class BookingRepositoryImpl implements BookingRepository {
+
+    private EntityManager entityManager = EntityManagerConfiguration.getEntityManager();
+
     @Override
-    public void save(Booking booking) {
-        EntityManager em = EntityManagerConfiguration.getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(booking);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            EntityManagerConfiguration.closeEntityManager(em);
-        }
+    public List<Flight> getFlights() {
+        TypedQuery<Flight> query = entityManager.createQuery(Queries.GET_ALL_BOOKINGS, Flight.class);
+        return query.getResultList();
     }
 
     @Override
-    public Booking findById(Long id) {
-        EntityManager em = EntityManagerConfiguration.getEntityManager();
-        try {
-            TypedQuery<Booking> query = em.createQuery(Queries.GET_BOOKING_BY_ID, Booking.class);
-            query.setParameter("id", id);
-            return query.getSingleResult();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            EntityManagerConfiguration.closeEntityManager(em);
-        }
+    public Flight getFlightById(Long id) {
+        return entityManager.find(Flight.class, id);
     }
 
     @Override
-    public List<Booking> findAll() {
-        EntityManager em = EntityManagerConfiguration.getEntityManager();
-        try {
-            TypedQuery<Booking> query = em.createQuery(Queries.GET_ALL_BOOKINGS, Booking.class);
-            return query.getResultList();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        } finally {
-            EntityManagerConfiguration.closeEntityManager(em);
-        }
+    public void saveFlight(Flight flight) {
+        entityManager.getTransaction().begin();
+        entityManager.persist(flight);
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void update(Booking booking) {
-        EntityManager em = EntityManagerConfiguration.getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.merge(booking);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            EntityManagerConfiguration.closeEntityManager(em);
-        }
+    public void updateFlight(Flight flight) {
+        entityManager.getTransaction().begin();
+        entityManager.merge(flight);
+        entityManager.getTransaction().commit();
     }
 
     @Override
-    public void delete(Booking booking) {
-        EntityManager em = EntityManagerConfiguration.getEntityManager();
-        try {
-            em.getTransaction().begin();
-            // Ensure the booking is managed before removal
-            Booking managedBooking = em.merge(booking);
-            em.remove(managedBooking);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            throw e;
-        } finally {
-            EntityManagerConfiguration.closeEntityManager(em);
-        }
+    public void deleteFlight(Long id) {
+        Flight flight = entityManager.find(Flight.class, id);
+        entityManager.getTransaction().begin();
+        entityManager.remove(flight);
+        entityManager.getTransaction().commit();
     }
-
 
 }

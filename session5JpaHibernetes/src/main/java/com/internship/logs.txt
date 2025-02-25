@@ -24,7 +24,7 @@ INFO: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transac
 Feb 25, 2025 2:27:57 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
 INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@4b691611] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
 [Hibernate]
-    create table booking (
+    create table flight (
         id integer not null auto_increment,
         booking_end_date date not null,
         booking_number varchar(255) not null,
@@ -66,10 +66,10 @@ INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.
         role_id integer not null
     ) engine=InnoDB
 [Hibernate]
-    alter table booking
+    alter table flight
        drop index UK_6j74n7w8mp19sixr5272028mk
 [Hibernate]
-    alter table booking
+    alter table flight
        add constraint UK_6j74n7w8mp19sixr5272028mk unique (booking_number)
 [Hibernate]
     alter table employee
@@ -84,7 +84,7 @@ INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.
     alter table employee_details
        add constraint UK_puftcdm791a7i6e45laapk3tw unique (employee_id)
 [Hibernate]
-    alter table booking
+    alter table flight
        add constraint FK1dnnhqt4wl3v6a72hxiarf7lg
        foreign key (employee_id)
        references employee (id)
