@@ -3,16 +3,14 @@
 
     <persistence-unit name="internshipPU">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.internship.entities.User</class>
-        <class>com.internship.entities.Flight</class>
-        <class>com.internship.entities.Booking</class>
-        <class>com.internship.entities.UserDetails</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://ubot202.eastops.nl:3504/airlines_db"/>
             <property name="javax.persistence.jdbc.user" value="root"/>
             <property name="javax.persistence.jdbc.password" value="MBAQFV0XBcq4DR9ZDZB1SyCvUj6XYsnj"/>
+
+            <property name="jakarta.persistence.EntityManager" value="jakarta.persistence.EntityManager"/>
 
             <!-- Hibernate properties -->
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
