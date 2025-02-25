@@ -1,6 +1,6 @@
-package com.lhind.repository;
+package com.internship.repository;
 
-import com.lhind.model.entity.Employee;
+import com.internship.model.entity.Employee;
 
 import java.util.List;
 import java.util.Optional;

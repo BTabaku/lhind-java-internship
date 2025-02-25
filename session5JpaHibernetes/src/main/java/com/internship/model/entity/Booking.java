@@ -1,6 +1,6 @@
-package com.lhind.model.entity;
+package com.internship.model.entity;
 
-import com.lhind.model.enums.BookingStatus;
+import com.internship.model.enums.BookingStatus;
 
 import jakarta.persistence.*;
 import java.util.Date;

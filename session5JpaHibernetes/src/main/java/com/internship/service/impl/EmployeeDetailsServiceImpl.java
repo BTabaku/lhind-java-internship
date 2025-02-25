@@ -1,9 +1,9 @@
-package com.lhind.service.impl;
+package com.internship.service.impl;
 
-import com.lhind.model.entity.EmployeeDetails;
-import com.lhind.repository.EmployeeDetailsRepository;
-import com.lhind.repository.impl.EmployeeDetailsRepositoryImpl;
-import com.lhind.service.EmployeeDetailsService;
+import com.internship.model.entity.EmployeeDetails;
+import com.internship.repository.EmployeeDetailsRepository;
+import com.internship.repository.impl.EmployeeDetailsRepositoryImpl;
+import com.internship.service.EmployeeDetailsService;
 
 public class EmployeeDetailsServiceImpl implements EmployeeDetailsService {
 

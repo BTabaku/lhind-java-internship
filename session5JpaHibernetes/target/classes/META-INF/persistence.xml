@@ -3,10 +3,6 @@
 
     <persistence-unit name="internshipPU">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.internship.entities.User</class>
-        <class>com.internship.entities.Flight</class>
-        <class>com.internship.entities.Booking</class>
-        <class>com.internship.entities.UserDetails</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

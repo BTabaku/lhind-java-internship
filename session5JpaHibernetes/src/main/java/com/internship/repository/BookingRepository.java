@@ -1,6 +1,6 @@
-package com.lhind.repository;
+package com.internship.repository;
 
-import com.lhind.model.entity.Booking;
+import com.internship.model.entity.Booking;
 
 import java.util.List;
 

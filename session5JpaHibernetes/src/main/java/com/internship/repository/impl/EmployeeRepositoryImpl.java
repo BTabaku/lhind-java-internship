@@ -1,9 +1,9 @@
-package com.lhind.repository.impl;
+package com.internship.repository.impl;
 
-import com.lhind.configuration.EntityManagerConfiguration;
-import com.lhind.model.entity.Employee;
-import com.lhind.repository.EmployeeRepository;
-import com.lhind.util.Queries;
+import com.internship.configuration.EntityManagerConfiguration;
+import com.internship.model.entity.Employee;
+import com.internship.repository.EmployeeRepository;
+import com.internship.util.Queries;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;

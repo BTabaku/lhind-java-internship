@@ -1,7 +1,7 @@
-package com.lhind.mapper;
+package com.internship.mapper;
 
-import com.lhind.model.dto.EmployeeDTO;
-import com.lhind.model.entity.Employee;
+import com.internship.model.dto.EmployeeDTO;
+import com.internship.model.entity.Employee;
 
 public class EmployeeMapper extends AbstractMapper<Employee, EmployeeDTO> {
 

@@ -1,4 +1,4 @@
-package com.lhind.model.enums;
+package com.internship.model.enums;
 
 public enum RoleEnum {
     EMPLOYEE,

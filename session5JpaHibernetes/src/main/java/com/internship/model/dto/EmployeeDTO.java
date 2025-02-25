@@ -1,6 +1,6 @@
-package com.lhind.model.dto;
+package com.internship.model.dto;
 
-import com.lhind.model.enums.EmploymentStatus;
+import com.internship.model.enums.EmploymentStatus;
 
 public class EmployeeDTO {
 

@@ -1,8 +1,8 @@
-package com.lhind.mapper;
+package com.internship.mapper;
 
-import com.lhind.model.dto.EmployeeDetailsDTO;
-import com.lhind.model.entity.EmployeeDetails;
-import com.lhind.model.enums.EmploymentStatus;
+import com.internship.model.dto.EmployeeDetailsDTO;
+import com.internship.model.entity.EmployeeDetails;
+import com.internship.model.enums.EmploymentStatus;
 
 import java.util.Date;
 

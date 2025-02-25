@@ -1,6 +1,6 @@
-package com.lhind.model.entity;
+package com.internship.model.entity;
 
-import com.lhind.model.enums.RoleEnum;
+import com.internship.model.enums.RoleEnum;
 
 import jakarta.persistence.*;
 

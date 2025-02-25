@@ -1,6 +1,6 @@
-package com.lhind.service;
+package com.internship.service;
 
-import com.lhind.model.dto.EmployeeDTO;
+import com.internship.model.dto.EmployeeDTO;
 
 import java.util.List;
 

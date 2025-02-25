@@ -1,4 +1,4 @@
-package com.lhind.util;
+package com.internship.util;
 
 public final class Queries {
 

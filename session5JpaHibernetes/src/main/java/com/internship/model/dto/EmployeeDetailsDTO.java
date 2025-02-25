@@ -1,4 +1,4 @@
-package com.lhind.model.dto;
+package com.internship.model.dto;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
-package com.lhind.service;
+package com.internship.service;
 
-import com.lhind.model.entity.EmployeeDetails;
+import com.internship.model.entity.EmployeeDetails;
 
 public interface EmployeeDetailsService {
 

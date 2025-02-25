@@ -1,11 +1,11 @@
-package com.lhind.repository.impl;
+package com.internship.repository.impl;
 
-import com.lhind.configuration.EntityManagerConfiguration;
-import com.lhind.model.entity.Booking;
-import com.lhind.model.entity.EmployeeDetails;
-import com.lhind.repository.BookingRepository;
-
+import com.internship.configuration.EntityManagerConfiguration;
+import com.internship.model.entity.Booking;
+import com.internship.model.entity.EmployeeDetails;
+import com.internship.repository.BookingRepository;
 import jakarta.persistence.EntityManager;
+
 import java.util.List;
 import java.util.Optional;
 

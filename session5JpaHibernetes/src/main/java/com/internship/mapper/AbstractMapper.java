@@ -1,4 +1,4 @@
-package com.lhind.mapper;
+package com.internship.mapper;
 
 public abstract class AbstractMapper<ENTITY, DTO> {
 

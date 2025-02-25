@@ -1,10 +1,10 @@
-package com.lhind.service.impl;
+package com.internship.service.impl;
 
-import com.lhind.mapper.EmployeeMapper;
-import com.lhind.model.dto.EmployeeDTO;
-import com.lhind.repository.EmployeeRepository;
-import com.lhind.repository.impl.EmployeeRepositoryImpl;
-import com.lhind.service.EmployeeService;
+import com.internship.mapper.EmployeeMapper;
+import com.internship.model.dto.EmployeeDTO;
+import com.internship.repository.EmployeeRepository;
+import com.internship.repository.impl.EmployeeRepositoryImpl;
+import com.internship.service.EmployeeService;
 
 import java.util.List;
 import java.util.stream.Collectors;

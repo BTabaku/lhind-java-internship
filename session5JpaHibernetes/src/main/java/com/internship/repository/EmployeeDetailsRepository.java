@@ -1,6 +1,6 @@
-package com.lhind.repository;
+package com.internship.repository;
 
-import com.lhind.model.entity.EmployeeDetails;
+import com.internship.model.entity.EmployeeDetails;
 
 public interface EmployeeDetailsRepository extends Repository<EmployeeDetails, Long>{
 }

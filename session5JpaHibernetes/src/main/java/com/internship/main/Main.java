@@ -1,20 +1,20 @@
-package com.lhind.main;
+package com.internship.main;
 
-import com.lhind.model.dto.EmployeeDTO;
-import com.lhind.model.dto.EmployeeDetailsDTO;
-import com.lhind.model.entity.Booking;
-import com.lhind.model.entity.Employee;
-import com.lhind.model.entity.EmployeeDetails;
-import com.lhind.model.enums.BookingStatus;
-import com.lhind.model.enums.EmploymentStatus;
-import com.lhind.repository.BookingRepository;
-import com.lhind.repository.EmployeeRepository;
-import com.lhind.repository.impl.BookingRepositoryImpl;
-import com.lhind.repository.impl.EmployeeRepositoryImpl;
-import com.lhind.service.EmployeeDetailsService;
-import com.lhind.service.EmployeeService;
-import com.lhind.service.impl.EmployeeDetailsServiceImpl;
-import com.lhind.service.impl.EmployeeServiceImpl;
+import com.internship.model.dto.EmployeeDTO;
+import com.internship.model.dto.EmployeeDetailsDTO;
+import com.internship.model.entity.Booking;
+import com.internship.model.entity.Employee;
+import com.internship.model.entity.EmployeeDetails;
+import com.internship.model.enums.BookingStatus;
+import com.internship.model.enums.EmploymentStatus;
+import com.internship.repository.BookingRepository;
+import com.internship.repository.EmployeeRepository;
+import com.internship.repository.impl.BookingRepositoryImpl;
+import com.internship.repository.impl.EmployeeRepositoryImpl;
+import com.internship.service.EmployeeDetailsService;
+import com.internship.service.EmployeeService;
+import com.internship.service.impl.EmployeeDetailsServiceImpl;
+import com.internship.service.impl.EmployeeServiceImpl;
 
 
 import java.util.Date;

@@ -1,10 +1,8 @@
-package com.lhind.configuration;
-
+package com.internship.configuration;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import java.util.Map;
 
 public final class EntityManagerConfiguration {
 

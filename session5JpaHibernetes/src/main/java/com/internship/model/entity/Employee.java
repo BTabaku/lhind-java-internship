@@ -1,6 +1,6 @@
-package com.lhind.model.entity;
+package com.internship.model.entity;
 
-import com.lhind.model.enums.EmploymentStatus;
+import com.internship.model.enums.EmploymentStatus;
 
 import jakarta.persistence.*;
 import java.util.List;

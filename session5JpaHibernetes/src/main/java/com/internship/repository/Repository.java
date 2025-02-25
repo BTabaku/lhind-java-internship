@@ -1,4 +1,4 @@
-package com.lhind.repository;
+package com.internship.repository;
 
 import java.util.List;
 import java.util.Optional;
