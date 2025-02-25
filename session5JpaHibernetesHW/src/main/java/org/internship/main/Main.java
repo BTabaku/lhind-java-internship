@@ -1,32 +1,30 @@
 package org.internship.main;
 
-import jakarta.persistence.EntityManager;
-import org.internship.configuration.EntityManagerConfiguration;
-
-import org.internship.model.enums.RoleEnum;
 import org.internship.model.entity.User;
+import org.internship.model.enums.RoleEnum;
+import org.internship.repository.UserRepository;
+import org.internship.repository.imp.UserRepositoryImpl;
+
+import java.util.List;
 
 
 public class Main {
 
     public static void main(String[] args) {
-        EntityManager em = EntityManagerConfiguration.getEntityManager();
-        try {
-            em.getTransaction().begin();
+        UserRepository userRepository = new UserRepositoryImpl();
 
-            // Create a new User instance
-            User newUser = new User("john_doe", "password123", RoleEnum.USER);
-            em.persist(newUser);
+        // Create a new user
+//        User user = new User();
+//        user.setUsername("user1");
+//        user.setPassword("password1");
+//        user.setRole(RoleEnum.ADMIN);
+//        userRepository.save(user);
 
-            em.getTransaction().commit();
-            System.out.println("User saved with ID: " + newUser.getId());
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            e.printStackTrace();
-        } finally {
-            EntityManagerConfiguration.closeEntityManager(em);
-            EntityManagerConfiguration.shutdown();
+        // Find all users
+        List<User> users = userRepository.findAll();
+        for (User u : users) {
+            System.out.println(u.getUsername());
         }
-    }
 
+    }
 }
