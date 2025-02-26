@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 
 import org.internship.configuration.EntityManagerConfiguration;
 import org.internship.model.entity.Booking;
+import org.internship.model.entity.Flight;
 import org.internship.repository.BookingRepository;
 import org.internship.util.Queries;
 
@@ -16,75 +17,84 @@ import java.util.List;
 
 public class BookingRepositoryImpl implements BookingRepository {
 
-    private final EntityManager entityManager = EntityManagerConfiguration.getEntityManager();
-
     @Override
-    public void save(Booking bookingDetails) {
-
-        Transaction transaction = null;
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            transaction = session.beginTransaction();
-            session.update(booking);
-            transaction.commit();
-        } catch (HibernateException e) {
-            if (transaction != null && transaction.getStatus().canRollback()) {
-                transaction.rollback();
+    public void save(Booking booking) {
+        EntityManager em = EntityManagerConfiguration.getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(booking);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
             }
-            e.printStackTrace();
+            throw e;
+        } finally {
+            EntityManagerConfiguration.closeEntityManager(em);
         }
-
     }
 
     @Override
     public Booking findById(Long id) {
+        EntityManager em = EntityManagerConfiguration.getEntityManager();
         try {
-            TypedQuery<Booking> query = entityManager.createQuery(Queries.GET_BOOKING_BY_ID, Booking.class);
+            TypedQuery<Booking> query = em.createQuery(Queries.GET_BOOKING_BY_ID, Booking.class);
             query.setParameter("id", id);
             return query.getSingleResult();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         } finally {
-            entityManager.close();
+            EntityManagerConfiguration.closeEntityManager(em);
         }
     }
 
     @Override
     public List<Booking> findAll() {
+        EntityManager em = EntityManagerConfiguration.getEntityManager();
         try {
-            TypedQuery<Booking> query = entityManager.createQuery(Queries.GET_ALL_BOOKINGS, Booking.class);
+            TypedQuery<Booking> query = em.createQuery("from Booking", Booking.class);
             return query.getResultList();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         } finally {
-            entityManager.close();
+            EntityManagerConfiguration.closeEntityManager(em);
         }
     }
 
     @Override
-    public void update(Booking bookingDetails) {
+    public void update(Booking booking) {
+        EntityManager em = EntityManagerConfiguration.getEntityManager();
         try {
-            entityManager.getTransaction().begin();
-            entityManager.merge(bookingDetails);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            em.merge(booking);
+            em.getTransaction().commit();
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            e.printStackTrace();
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            EntityManagerConfiguration.closeEntityManager(em);
         }
     }
 
     @Override
-    public void delete(Booking bookingDetails) {
-
+    public void delete(Booking booking) {
+        EntityManager em = EntityManagerConfiguration.getEntityManager();
         try {
-            entityManager.getTransaction().begin();
-            entityManager.remove(bookingDetails);
-            entityManager.getTransaction().commit();
+            em.getTransaction().begin();
+            Booking managedBooking = em.merge(booking);
+            em.remove(managedBooking);
+            em.getTransaction().commit();
         } catch (Exception e) {
-            entityManager.getTransaction().rollback();
-            e.printStackTrace();
-
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw e;
+        } finally {
+            EntityManagerConfiguration.closeEntityManager(em);
         }
     }
 }
