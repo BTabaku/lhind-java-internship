@@ -1,7 +1,7 @@
 package com.internship.session6springboot.entity;
 
 import jakarta.persistence.*;
-import org.internship.model.enums.BookingStatus;
+import com.internship.session6springboot.enums.BookingStatus;
 
 import java.util.List;
 

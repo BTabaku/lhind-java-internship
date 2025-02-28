@@ -1,6 +1,6 @@
 package com.internship.session6springboot.repository;
 
-import org.internship.model.entity.Flight;
+import com.internship.session6springboot.entity.Flight;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDateTime;
 import java.util.List;
