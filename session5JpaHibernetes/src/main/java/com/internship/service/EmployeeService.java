@@ -1,4 +1,4 @@
-package com.internship.serv`ice;
+package com.internship.service;
 
 import com.internship.model.dto.EmployeeDTO;
 

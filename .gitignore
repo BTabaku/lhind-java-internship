@@ -1,1 +1,5 @@
 .idea/*
+venv/*
+
+content_files_test.txt
+file_extractor.py

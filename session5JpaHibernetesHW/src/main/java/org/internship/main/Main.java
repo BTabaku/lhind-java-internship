@@ -18,40 +18,40 @@ import java.util.Optional;
 
 public class Main {
 
-   public static void main(String[] args) {
+     public static void main(String[] args) {
 
-        BookingRepository bookingRepo = new BookingRepositoryImpl();
+          BookingRepository bookingRepo = new BookingRepositoryImpl();
 
-        // Create a new booking
-        Booking booking = new Booking(LocalDateTime.now(), BookingStatus.PENDING);
-        bookingRepo.save(booking);
-        System.out.println("Booking saved with ID: " + booking.getId());
+          // Create a new booking
+          Booking booking = new Booking(LocalDateTime.now(), BookingStatus.PENDING);
+          bookingRepo.save(booking);
+          System.out.println("Booking saved with ID: " + booking.getId());
 
-        // Retrieve booking by ID using Optional
-        Optional<Booking> foundBookingOpt = Optional.ofNullable(bookingRepo.findById(booking.getId()));
-        if (foundBookingOpt.isPresent()) {
-             Booking foundBooking = foundBookingOpt.get();
-             System.out.println("Found Booking with status: " + foundBooking.getStatus());
+          // Retrieve booking by ID using Optional
+          Optional<Booking> foundBookingOpt = Optional.ofNullable(bookingRepo.findById(booking.getId()));
+          if (foundBookingOpt.isPresent()) {
+               Booking foundBooking = foundBookingOpt.get();
+               System.out.println("Found Booking with status: " + foundBooking.getStatus());
 
-             // Update booking status
-             foundBooking.setStatus(BookingStatus.CONFIRMED);
-             bookingRepo.update(foundBooking);
-             System.out.println("Booking updated.");
+               // Update booking status
+               foundBooking.setStatus(BookingStatus.CONFIRMED);
+               bookingRepo.update(foundBooking);
+               System.out.println("Booking updated.");
 
-             // Retrieve all bookings
-             List<Booking> allBookings = bookingRepo.findAll();
-             System.out.println("All bookings:");
-             allBookings.forEach(b -> System.out.println(" - ID: " + b.getId() + ", Status: " + b.getStatus()));
+               // Retrieve all bookings
+               List<Booking> allBookings = bookingRepo.findAll();
+               System.out.println("All bookings:");
+               allBookings.forEach(b -> System.out.println(" - ID: " + b.getId() + ", Status: " + b.getStatus()));
 
-             // Delete the booking
-             bookingRepo.delete(foundBooking);
-             System.out.println("Booking deleted.");
-        } else {
-             System.out.println("Booking not found");
-        }
+               // Delete the booking
+               bookingRepo.delete(foundBooking);
+               System.out.println("Booking deleted.");
+          } else {
+               System.out.println("Booking not found");
+          }
 
-        // Shutdown the EntityManagerFactory when done
-        EntityManagerConfiguration.shutdown();
+          // Shutdown the EntityManagerFactory when done
+          EntityManagerConfiguration.shutdown();
 
 //        FlightRepository flightRepo = new FlightRepositoryImpl();
 //
@@ -131,5 +131,5 @@ public class Main {
 
 
 
-    }
+     }
 }

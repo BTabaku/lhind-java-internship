@@ -15,6 +15,10 @@ public class Booking {
     @JoinColumn(name = "flight_id")  // Foreign key in the `booking` table
     private Flight flight;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -62,5 +66,13 @@ public class Booking {
 
     public BookingStatus getStatus() {
         return bookingStatus;
+    }
+
+    public Flight getFlight() {
+        return flight;
+    }
+
+    public void setFlight(Flight flight) {
+        this.flight = flight;
     }
 }
