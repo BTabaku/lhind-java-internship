@@ -60,4 +60,24 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public void delete(Booking booking) {
     }
+
+    @Override
+    public List<Booking> findAllByOrderByBookingDateDesc() {
+        return null;
+    }
+
+    @Override
+    public List<Booking> findByUserIdOrderByBookingDateDesc(Long userId) {
+        return null;
+    }
+
+    @Override
+    public Optional<Booking> findByIdAndUserId(Long bookingId, Long userId) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<Booking> findByFlightId(Long flightId) {
+        return null;
+    }
 }

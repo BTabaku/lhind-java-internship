@@ -96,17 +96,15 @@ public class BookingServiceImpl implements BookingService {
             Booking booking = bookingOpt.get();
             booking.setBookingDate(bookingDTO.getBookingDate());
             booking.setBookingStatus(bookingDTO.getBookingStatus());
-            // For simplicity, we're not updating flight and user references here.
-            bookingRepository.update(booking);
+
+            // Use save() instead of update()
+            bookingRepository.save(booking);
         }
     }
 
     @Override
     public void deleteBooking(Long id) {
-        Optional<Booking> bookingOpt = bookingRepository.findById(id);
-        if (bookingOpt.isPresent()) {
-            bookingRepository.delete(bookingOpt.get());
-        }
+        bookingRepository.deleteById(id);
     }
 
 }

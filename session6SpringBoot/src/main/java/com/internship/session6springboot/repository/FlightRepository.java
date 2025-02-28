@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.internship.util.Queries;
+import com.internship.session6springboot.util.Queries;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 

@@ -6,8 +6,9 @@ import jakarta.persistence.*;
 @Table(name = "user_details")
 public class UserDetails {
 
-    @OneToOne
-    @JoinColumn(name = "user_id") // foreign key in user_details table
+    // UserDetails.java
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
     @Id

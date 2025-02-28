@@ -2,7 +2,7 @@ package com.internship.session6springboot.repository;
 
 import com.internship.session6springboot.enums.RoleEnum;
 import com.internship.session6springboot.entity.User;
-import org.internship.util.Queries;
+import com.internship.session6springboot.util.Queries;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

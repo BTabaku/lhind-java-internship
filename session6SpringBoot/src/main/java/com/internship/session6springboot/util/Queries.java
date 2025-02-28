@@ -27,4 +27,10 @@ public final class Queries {
     public static final String GET_BOOKINGS_BY_USER_ID = "SELECT b FROM Booking b WHERE b.user.id = :userId";
     public static final String GET_BOOKINGS_BY_FLIGHT_ID = "SELECT b FROM Booking b WHERE b.flight.id = :flightId";
     public static final String GET_BOOKING_BY_ID_AND_USER_ID = "SELECT b FROM Booking b WHERE b.id = :bookingId AND b.user.id = :userId";
+
+    public static final String UPDATE_BOOKING = "UPDATE Booking b SET b.bookingStatus = :status, " +
+            "b.bookingDate = :date WHERE b.id = :id";
+
+
+
 }

@@ -1,14 +1,15 @@
 package com.internship.session6springboot.entity;
 
-import jakarta.persistence.*;
-import com.internship.session6springboot.entity.UserDetails;
 import com.internship.session6springboot.enums.RoleEnum;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user")
 public class User {
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private UserDetails userDetails;
 
     @Id
