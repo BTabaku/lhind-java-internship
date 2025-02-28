@@ -3,7 +3,11 @@ package com.internship.session6springboot.dto;
 import com.internship.session6springboot.enums.BookingStatus;
 
 import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class FlightDTO {
 
     private Long id;
@@ -13,11 +17,7 @@ public class FlightDTO {
     private String flightNumber;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
-    // Change type to BookingStatus
     private BookingStatus status;
-
-    // Constructors, getters and setters
-    public FlightDTO() {}
 
     public FlightDTO(Long id, String origin, String destination, String airline, String flightNumber,
                      LocalDateTime departureDate, LocalDateTime arrivalDate, BookingStatus status) {

@@ -4,11 +4,12 @@ import com.internship.session6springboot.dto.BookingDTO;
 import com.internship.session6springboot.entity.Booking;
 import com.internship.session6springboot.entity.Flight;
 import com.internship.session6springboot.entity.User;
-import com.internship.session6springboot.enums.BookingStatus;
 import com.internship.session6springboot.repository.BookingRepository;
 import com.internship.session6springboot.repository.FlightRepository;
 import com.internship.session6springboot.repository.UserRepository;
 import com.internship.session6springboot.service.BookingService;
+
+import com.internship.session6springboot.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,33 +32,29 @@ public class BookingServiceImpl implements BookingService {
     public BookingDTO createBooking(BookingDTO bookingDTO) {
         Booking booking = new Booking();
         booking.setBookingDate(bookingDTO.getBookingDate());
-        // Use the provided booking status (or default to PENDING)
         booking.setBookingStatus(bookingDTO.getBookingStatus());
 
-        // Retrieve associated Flight and User entities using IDs from DTO
-        Flight flight = flightRepository.findById(bookingDTO.getFlightId()).orElse(null);
-        User user = userRepository.findById(bookingDTO.getUserId()).orElse(null);
-        if (flight == null || user == null) {
-            throw new RuntimeException("Invalid Flight ID or User ID");
-        }
-        booking.setFlight(flight);
-        booking.setUser(user);
+        Flight flight = flightRepository.findById(bookingDTO.getFlightId())
+                .orElseThrow(() -> new ResourceNotFoundException("Flight not found"));
+        User user = userRepository.findById(bookingDTO.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        if (flight == null || user == null) {
-            throw new RuntimeException("Invalid Flight ID or User ID");
-        }
         booking.setFlight(flight);
         booking.setUser(user);
 
         bookingRepository.save(booking);
 
-        // Map saved entity to DTO
+        // Map to DTO using a mapper (e.g., MapStruct)
+        return convertToDTO(booking);
+    }
+
+    private BookingDTO convertToDTO(Booking booking) {
         BookingDTO dto = new BookingDTO();
         dto.setId(booking.getId());
         dto.setBookingDate(booking.getBookingDate());
         dto.setBookingStatus(booking.getBookingStatus());
-        dto.setFlightId(flight.getId());
-        dto.setUserId(user.getId());
+        dto.setFlightId(booking.getFlight().getId());
+        dto.setUserId(booking.getUser().getId());
         return dto;
     }
 
