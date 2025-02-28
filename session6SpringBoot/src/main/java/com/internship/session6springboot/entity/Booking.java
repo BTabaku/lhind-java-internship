@@ -1,5 +1,6 @@
 package com.internship.session6springboot.entity;
 
+import com.mysql.cj.Query;
 import jakarta.persistence.*;
 import com.internship.session6springboot.enums.BookingStatus;
 
@@ -75,4 +76,14 @@ public class Booking {
     public void setFlight(Flight flight) {
         this.flight = flight;
     }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+
 }

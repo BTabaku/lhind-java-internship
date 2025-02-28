@@ -5,6 +5,7 @@ import com.internship.session6springboot.enums.BookingStatus;
 import java.time.LocalDateTime;
 
 public class FlightDTO {
+
     private Long id;
     private String origin;
     private String destination;
@@ -12,12 +13,14 @@ public class FlightDTO {
     private String flightNumber;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
+    // Change type to BookingStatus
     private BookingStatus status;
 
-    // Constructors
+    // Constructors, getters and setters
     public FlightDTO() {}
 
-    public FlightDTO(Long id, String origin, String destination, String airline, String flightNumber, LocalDateTime departureDate, LocalDateTime arrivalDate, BookingStatus status) {
+    public FlightDTO(Long id, String origin, String destination, String airline, String flightNumber,
+                     LocalDateTime departureDate, LocalDateTime arrivalDate, BookingStatus status) {
         this.id = id;
         this.origin = origin;
         this.destination = destination;
@@ -27,8 +30,6 @@ public class FlightDTO {
         this.arrivalDate = arrivalDate;
         this.status = status;
     }
-
-    // Getters and Setters
 
     public Long getId() {
         return id;

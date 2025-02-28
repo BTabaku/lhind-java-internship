@@ -1,4 +1,4 @@
-package org.internship.util;
+package com.internship.session6springboot.util;
 
 public final class Queries {
 

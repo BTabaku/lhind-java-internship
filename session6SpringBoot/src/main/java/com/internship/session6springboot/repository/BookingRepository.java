@@ -18,4 +18,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     // Get all bookings on a specific flight
     List<Booking> findByFlightId(Long flightId);
+
+    void update(Booking booking);
 }

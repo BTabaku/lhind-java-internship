@@ -1,12 +1,14 @@
 package com.internship.session6springboot.service;
 
 import com.internship.session6springboot.dto.BookingDTO;
-import com.internship.session6springboot.dto.BookingResponseDTO;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface BookingService {
-    BookingResponseDTO createBooking(BookingRequestDTO bookingRequestDTO);
-    Optional<BookingResponseDTO> getBookingById(Long id);
-    List<BookingResponseDTO> getAllBookings();
-    void updateBooking(Long id, BookingRequestDTO bookingRequestDTO);
+    BookingDTO createBooking(BookingDTO bookingDTO);
+    Optional<BookingDTO> getBookingById(Long id);
+    List<BookingDTO> getAllBookings();
+    void updateBooking(Long id, BookingDTO bookingDTO);
     void deleteBooking(Long id);
 }
