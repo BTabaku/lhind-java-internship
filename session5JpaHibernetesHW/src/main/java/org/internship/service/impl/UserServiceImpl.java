@@ -1,7 +1,6 @@
 package org.internship.service.impl;
 
 import org.internship.mapper.UserCreateMapper;
-import org.internship.mapper.UserMapper;
 import org.internship.mapper.UserResponseMapper;
 import org.internship.model.dto.UserCreateDTO;
 import org.internship.model.dto.UserResponseDTO;
@@ -9,7 +8,6 @@ import org.internship.model.entity.User;
 import org.internship.repository.UserRepository;
 import org.internship.repository.imp.UserRepositoryImpl;
 import org.internship.service.UserService;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,16 +16,15 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository = new UserRepositoryImpl();
     private final UserResponseMapper userResponseMapper = new UserResponseMapper();
-    // Use UserCreateMapper directly (static) if desired
 
     @Override
     public UserResponseDTO registerUser(UserCreateDTO userCreateDTO) {
         try {
             // Convert registration DTO to entity
             User user = UserCreateMapper.toEntity(userCreateDTO);
-            // Save the user
+            // Save the user (password is stored as provided)
             userRepository.save(user);
-            // Return a response DTO (which aggregates user and user details)
+            // Return a response DTO (aggregates user and user details)
             return userResponseMapper.toDTO(user);
         } catch (Exception ex) {
             System.err.println("Error registering user: " + ex.getMessage());
@@ -51,15 +48,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UserResponseDTO userResponseDTO) {
-        // Convert response DTO back to entity if needed; be cautious as response DTO might be read-only.
-        // Alternatively, create a separate update DTO.
-        User user = new User();
-        user.setId(userResponseDTO.getId());
-        user.setUsername(userResponseDTO.getUsername());
-        user.setRole(userResponseDTO.getRole());
-        // Note: UserDetails update might be handled separately.
-        userRepository.update(user);
+    public void updateUser(Long id, UserCreateDTO userCreateDTO) {
+        User existingUser = userRepository.findById(id);
+        if (existingUser != null) {
+            // Update basic fields from UserCreateDTO
+            existingUser.setUsername(userCreateDTO.getUsername());
+            existingUser.setPassword(userCreateDTO.getPassword());
+            existingUser.setRole(userCreateDTO.getRole());
+            userRepository.update(existingUser);
+        }
     }
 
     @Override
