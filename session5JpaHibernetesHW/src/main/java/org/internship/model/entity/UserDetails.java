@@ -6,6 +6,11 @@ import jakarta.persistence.*;
 @Table(name = "user_details")
 public class UserDetails {
 
+    @OneToOne
+    @JoinColumn(name = "user_id") // This creates a foreign key column "user_id" in the user_details table
+    private User user;
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

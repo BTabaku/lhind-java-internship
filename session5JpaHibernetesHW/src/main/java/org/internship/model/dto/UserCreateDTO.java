@@ -2,7 +2,7 @@
 
 package org.internship.model.dto;
 
-import com.internship.model.enums.RoleEnum;
+import org.internship.model.enums.RoleEnum;
 
 public class UserCreateDTO {
     private String username;

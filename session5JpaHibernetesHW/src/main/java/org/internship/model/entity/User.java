@@ -8,6 +8,10 @@ import org.internship.model.enums.RoleEnum;
 @Table(name = "user")
 public class User {
 
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private UserDetails userDetails;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,6 +25,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false)
     private RoleEnum role;
+
 
     public User() {
     }

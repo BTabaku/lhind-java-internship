@@ -3,11 +3,17 @@ package org.internship.model.entity;
 import jakarta.persistence.*;
 import org.internship.model.enums.BookingStatus;
 
+import java.util.List;
+
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "booking")
 public class Booking {
+
+    @ManyToOne
+    @JoinColumn(name = "flight_id")  // Foreign key in the `booking` table
+    private Flight flight;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
