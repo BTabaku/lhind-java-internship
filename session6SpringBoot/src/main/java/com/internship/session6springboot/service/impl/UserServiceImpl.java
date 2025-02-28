@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
             UserResponseDTO dto = new UserResponseDTO();
             dto.setId(user.getId());
             dto.setUsername(user.getUsername());
-            dto.setRole(user.getRole());
+            dto.setRole(String.valueOf(user.getRole()));
             if (user.getUserDetails() != null) {
                 dto.setFirstName(user.getUserDetails().getFirstName());
                 dto.setLastName(user.getUserDetails().getLastName());
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
             UserResponseDTO dto = new UserResponseDTO();
             dto.setId(user.getId());
             dto.setUsername(user.getUsername());
-            dto.setRole(user.getRole());
+            dto.setRole(String.valueOf(user.getRole()));
             if (user.getUserDetails() != null) {
                 dto.setFirstName(user.getUserDetails().getFirstName());
                 dto.setLastName(user.getUserDetails().getLastName());
@@ -85,20 +85,26 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(Long id, UserCreateDTO userCreateDTO) {
-        User user = userRepository.findById(id);
-        if (user != null) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isPresent()) {
+            User user = userOpt.get();
             user.setUsername(userCreateDTO.getUsername());
             user.setPassword(userCreateDTO.getPassword());
             user.setRole(userCreateDTO.getRole());
-            userRepository.update(user);
+            userRepository.save(user);
+        } else {
+            throw new RuntimeException("User not found");
         }
     }
 
+
     @Override
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id);
-        if (user != null) {
-            userRepository.delete(user);
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isPresent()) {
+            userRepository.delete(userOpt.get());
+        } else {
+            throw new RuntimeException("User not found");
         }
     }
 }
