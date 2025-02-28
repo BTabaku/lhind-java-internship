@@ -1,30 +1,42 @@
-//For creating flights (includes origin, destination, airline, flightNumber, departureDate, arrivalDate)
-
 package org.internship.model.dto;
 
 import java.time.LocalDateTime;
 
 public class FlightDTO {
 
+    private Long id;
     private String origin;
     private String destination;
     private String airline;
     private String flightNumber;
     private LocalDateTime departureDate;
     private LocalDateTime arrivalDate;
-
+    // For simplicity, we will use BookingStatus from your enums.
+    private String status; // Alternatively, you can use your BookingStatus enum.
 
     public FlightDTO() {
     }
 
-    public FlightDTO(String origin, String destination, String airline, String flightNumber, LocalDateTime departureDate,
-                     LocalDateTime arrivalDate) {
+    public FlightDTO(Long id, String origin, String destination, String airline, String flightNumber,
+                     LocalDateTime departureDate, LocalDateTime arrivalDate, String status) {
+        this.id = id;
         this.origin = origin;
         this.destination = destination;
         this.airline = airline;
         this.flightNumber = flightNumber;
         this.departureDate = departureDate;
         this.arrivalDate = arrivalDate;
+        this.status = status;
+    }
+
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getOrigin() {
@@ -75,16 +87,25 @@ public class FlightDTO {
         this.arrivalDate = arrivalDate;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "FlightDTO{" +
-                "origin='" + origin + '\'' +
+                "id=" + id +
+                ", origin='" + origin + '\'' +
                 ", destination='" + destination + '\'' +
                 ", airline='" + airline + '\'' +
                 ", flightNumber='" + flightNumber + '\'' +
                 ", departureDate=" + departureDate +
                 ", arrivalDate=" + arrivalDate +
+                ", status='" + status + '\'' +
                 '}';
     }
-
 }

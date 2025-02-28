@@ -49,7 +49,7 @@ public class UserRepositoryImpl implements UserRepository {
             EntityManagerConfiguration.closeEntityManager(em);
         }
     }
-    
+
     @Override
     public void update(User user) {
         EntityManager em = EntityManagerConfiguration.getEntityManager();
@@ -70,7 +70,9 @@ public class UserRepositoryImpl implements UserRepository {
         EntityManager em = EntityManagerConfiguration.getEntityManager();
         try {
             em.getTransaction().begin();
-            em.remove(user);
+            // Merge the detached instance to get a managed instance
+            User managedUser = em.merge(user);
+            em.remove(managedUser);
             em.getTransaction().commit();
         } catch (Exception e) {
             em.getTransaction().rollback();
@@ -79,5 +81,6 @@ public class UserRepositoryImpl implements UserRepository {
             EntityManagerConfiguration.closeEntityManager(em);
         }
     }
+
 
 }
