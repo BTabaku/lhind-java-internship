@@ -1,0 +1,413 @@
+/usr/lib/jvm/java-17/bin/java -javaagent:/home/btabaku/.cache/JetBrains/RemoteDev/dist/7e45addac37cb_ideaIU-2023.3.8/lib/idea_rt.jar=40133:/home/btabaku/.cache/JetBrains/RemoteDev/dist/7e45addac37cb_ideaIU-2023.3.8/bin -Dfile.encoding=UTF-8 -classpath /home/btabaku/dev/lhind-java-internship/session5JpaHibernetesHW/target/classes:/home/btabaku/.m2/repository/org/hibernate/orm/hibernate-core/6.2.5.Final/hibernate-core-6.2.5.Final.jar:/home/btabaku/.m2/repository/jakarta/transaction/jakarta.transaction-api/2.0.1/jakarta.transaction-api-2.0.1.jar:/home/btabaku/.m2/repository/org/jboss/logging/jboss-logging/3.5.0.Final/jboss-logging-3.5.0.Final.jar:/home/btabaku/.m2/repository/org/hibernate/common/hibernate-commons-annotations/6.0.6.Final/hibernate-commons-annotations-6.0.6.Final.jar:/home/btabaku/.m2/repository/io/smallrye/jandex/3.0.5/jandex-3.0.5.jar:/home/btabaku/.m2/repository/com/fasterxml/classmate/1.5.1/classmate-1.5.1.jar:/home/btabaku/.m2/repository/net/bytebuddy/byte-buddy/1.12.18/byte-buddy-1.12.18.jar:/home/btabaku/.m2/repository/jakarta/xml/bind/jakarta.xml.bind-api/4.0.0/jakarta.xml.bind-api-4.0.0.jar:/home/btabaku/.m2/repository/jakarta/activation/jakarta.activation-api/2.1.0/jakarta.activation-api-2.1.0.jar:/home/btabaku/.m2/repository/org/glassfish/jaxb/jaxb-runtime/4.0.2/jaxb-runtime-4.0.2.jar:/home/btabaku/.m2/repository/org/glassfish/jaxb/jaxb-core/4.0.2/jaxb-core-4.0.2.jar:/home/btabaku/.m2/repository/org/eclipse/angus/angus-activation/2.0.0/angus-activation-2.0.0.jar:/home/btabaku/.m2/repository/org/glassfish/jaxb/txw2/4.0.2/txw2-4.0.2.jar:/home/btabaku/.m2/repository/com/sun/istack/istack-commons-runtime/4.1.1/istack-commons-runtime-4.1.1.jar:/home/btabaku/.m2/repository/jakarta/inject/jakarta.inject-api/2.0.1/jakarta.inject-api-2.0.1.jar:/home/btabaku/.m2/repository/org/antlr/antlr4-runtime/4.10.1/antlr4-runtime-4.10.1.jar:/home/btabaku/.m2/repository/jakarta/persistence/jakarta.persistence-api/3.1.0/jakarta.persistence-api-3.1.0.jar:/home/btabaku/.m2/repository/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar:/home/btabaku/.m2/repository/com/google/protobuf/protobuf-java/3.21.9/protobuf-java-3.21.9.jar org.internship.main.Main
+Feb 28, 2025 2:27:35 PM org.hibernate.jpa.internal.util.LogHelper logPersistenceUnitInformation
+INFO: HHH000204: Processing PersistenceUnitInfo [name: jpa]
+Feb 28, 2025 2:27:35 PM org.hibernate.Version logVersion
+INFO: HHH000412: Hibernate ORM core version 6.2.5.Final
+Feb 28, 2025 2:27:35 PM org.hibernate.cfg.Environment <clinit>
+INFO: HHH000406: Using bytecode reflection optimizer
+Feb 28, 2025 2:27:36 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl configure
+WARN: HHH10001002: Using built-in connection pool (not intended for production use)
+Feb 28, 2025 2:27:36 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001005: Loaded JDBC driver class: com.mysql.cj.jdbc.Driver
+Feb 28, 2025 2:27:37 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001012: Connecting with JDBC URL [jdbc:mysql://ubot202.eastops.nl:3504/users_db_jpa?createDatabaseIfNotExist=true]
+Feb 28, 2025 2:27:37 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001001: Connection properties: {password=****, user=root}
+Feb 28, 2025 2:27:37 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl buildCreator
+INFO: HHH10001003: Autocommit mode: false
+Feb 28, 2025 2:27:37 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PooledConnections <init>
+INFO: HHH10001115: Connection pool size: 20 (min=1)
+Feb 28, 2025 2:27:39 PM org.hibernate.bytecode.internal.BytecodeProviderInitiator buildBytecodeProvider
+INFO: HHH000021: Bytecode provider name : bytebuddy
+Feb 28, 2025 2:27:41 PM org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator initiateService
+INFO: HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+Feb 28, 2025 2:27:41 PM org.hibernate.resource.transaction.backend.jdbc.internal.DdlTransactionIsolatorNonJtaImpl getIsolatedConnection
+INFO: HHH10001501: Connection obtained from JdbcConnectionAccess [org.hibernate.engine.jdbc.env.internal.JdbcEnvironmentInitiator$ConnectionProviderJdbcConnectionAccess@72ce812e] for (non-JTA) DDL execution was not in auto-commit mode; the Connection 'local transaction' will be committed and the Connection will be set into auto-commit mode.
+[Hibernate]
+    alter table booking
+       modify column booking_date  datetime(6)
+[Hibernate]
+    alter table booking
+       modify column booking_status  enum ('CANCELLED','CONFIRMED','PENDING')
+[Hibernate]
+    alter table flight
+       modify column arrival_date  datetime(6) not null
+[Hibernate]
+    alter table flight
+       modify column departure_date  datetime(6) not null
+[Hibernate]
+    alter table flight
+       modify column status  enum ('CANCELLED','CONFIRMED','PENDING') not null
+[Hibernate]
+    alter table user
+       modify column role  enum ('ADMIN','USER') not null
+[Hibernate]
+    insert
+    into
+        flight
+        (airline,arrival_date,departure_date,destination,flight_number,origin,status)
+    values
+        (?,?,?,?,?,?,?)
+Flight created: FlightDTO{id=2, origin='New York', destination='London', airline='British Airways', flightNumber='BA117', departureDate=2025-03-01T15:30, arrivalDate=2025-03-01T23:45, status='PENDING'}
+[Hibernate]
+    select
+        f1_0.id,
+        f1_0.airline,
+        f1_0.arrival_date,
+        f1_0.departure_date,
+        f1_0.destination,
+        f1_0.flight_number,
+        f1_0.origin,
+        f1_0.status
+    from
+        flight f1_0
+    where
+        f1_0.id=?
+Retrieved Flight: FlightDTO{id=2, origin='New York', destination='London', airline='British Airways', flightNumber='BA117', departureDate=2025-03-01T15:30, arrivalDate=2025-03-01T23:45, status='PENDING'}
+[Hibernate]
+    select
+        f1_0.id,
+        f1_0.airline,
+        f1_0.arrival_date,
+        f1_0.departure_date,
+        f1_0.destination,
+        f1_0.flight_number,
+        f1_0.origin,
+        f1_0.status
+    from
+        flight f1_0
+    where
+        f1_0.id=?
+[Hibernate]
+    select
+        f1_0.id,
+        f1_0.airline,
+        f1_0.arrival_date,
+        f1_0.departure_date,
+        f1_0.destination,
+        f1_0.flight_number,
+        f1_0.origin,
+        f1_0.status,
+        b1_0.flight_id,
+        b1_0.id,
+        b1_0.booking_date,
+        b1_0.booking_status,
+        b1_0.user_id,
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username
+    from
+        flight f1_0
+    left join
+        booking b1_0
+            on f1_0.id=b1_0.flight_id
+    left join
+        user u1_0
+            on u1_0.id=b1_0.user_id
+    where
+        f1_0.id=?
+[Hibernate]
+    update
+        flight
+    set
+        airline=?,
+        arrival_date=?,
+        departure_date=?,
+        destination=?,
+        flight_number=?,
+        origin=?,
+        status=?
+    where
+        id=?
+Flight updated.
+[Hibernate]
+    select
+        f1_0.id,
+        f1_0.airline,
+        f1_0.arrival_date,
+        f1_0.departure_date,
+        f1_0.destination,
+        f1_0.flight_number,
+        f1_0.origin,
+        f1_0.status
+    from
+        flight f1_0
+All Flights:
+FlightDTO{id=2, origin='New York', destination='Paris', airline='British Airways', flightNumber='BA117', departureDate=2025-03-01T15:30, arrivalDate=2025-03-01T23:45, status='PENDING'}
+[Hibernate]
+    select
+        f1_0.id,
+        f1_0.airline,
+        f1_0.arrival_date,
+        f1_0.departure_date,
+        f1_0.destination,
+        f1_0.flight_number,
+        f1_0.origin,
+        f1_0.status
+    from
+        flight f1_0
+    where
+        f1_0.id=?
+[Hibernate]
+    select
+        f1_0.id,
+        f1_0.airline,
+        f1_0.arrival_date,
+        f1_0.departure_date,
+        f1_0.destination,
+        f1_0.flight_number,
+        f1_0.origin,
+        f1_0.status,
+        b1_0.flight_id,
+        b1_0.id,
+        b1_0.booking_date,
+        b1_0.booking_status,
+        b1_0.user_id,
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username
+    from
+        flight f1_0
+    left join
+        booking b1_0
+            on f1_0.id=b1_0.flight_id
+    left join
+        user u1_0
+            on u1_0.id=b1_0.user_id
+    where
+        f1_0.id=?
+[Hibernate]
+    delete
+    from
+        flight
+    where
+        id=?
+Flight deleted.
+[Hibernate]
+    insert
+    into
+        user
+        (password,role,username)
+    values
+        (?,?,?)
+Registered User: UserResponseDTO{id=4, username='btabaku', role=USER, firstName='null', lastName='null', email='null', phoneNumber='null'}
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username
+    from
+        user u1_0
+    where
+        u1_0.id=?
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.phone_number,
+        u2_0.id,
+        u2_0.password,
+        u2_0.role,
+        u2_0.username
+    from
+        user_details u1_0
+    left join
+        user u2_0
+            on u2_0.id=u1_0.user_id
+    where
+        u1_0.user_id=?
+Retrieved User: UserResponseDTO{id=4, username='btabaku', role=USER, firstName='null', lastName='null', email='null', phoneNumber='null'}
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username
+    from
+        user u1_0
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.phone_number,
+        u2_0.id,
+        u2_0.password,
+        u2_0.role,
+        u2_0.username
+    from
+        user_details u1_0
+    left join
+        user u2_0
+            on u2_0.id=u1_0.user_id
+    where
+        u1_0.user_id=?
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.phone_number,
+        u2_0.id,
+        u2_0.password,
+        u2_0.role,
+        u2_0.username
+    from
+        user_details u1_0
+    left join
+        user u2_0
+            on u2_0.id=u1_0.user_id
+    where
+        u1_0.user_id=?
+All Users:
+UserResponseDTO{id=2, username='bafti40', role=USER, firstName='null', lastName='null', email='null', phoneNumber='null'}
+UserResponseDTO{id=4, username='btabaku', role=USER, firstName='null', lastName='null', email='null', phoneNumber='null'}
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username
+    from
+        user u1_0
+    where
+        u1_0.id=?
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.phone_number,
+        u2_0.id,
+        u2_0.password,
+        u2_0.role,
+        u2_0.username
+    from
+        user_details u1_0
+    left join
+        user u2_0
+            on u2_0.id=u1_0.user_id
+    where
+        u1_0.user_id=?
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u2_0.id,
+        u2_0.email,
+        u2_0.first_name,
+        u2_0.last_name,
+        u2_0.phone_number,
+        u1_0.username
+    from
+        user u1_0
+    left join
+        user_details u2_0
+            on u1_0.id=u2_0.user_id
+    where
+        u1_0.id=?
+[Hibernate]
+    update
+        user
+    set
+        password=?,
+        role=?,
+        username=?
+    where
+        id=?
+User updated.
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username
+    from
+        user u1_0
+    where
+        u1_0.id=?
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.phone_number,
+        u2_0.id,
+        u2_0.password,
+        u2_0.role,
+        u2_0.username
+    from
+        user_details u1_0
+    left join
+        user u2_0
+            on u2_0.id=u1_0.user_id
+    where
+        u1_0.user_id=?
+Updated User: UserResponseDTO{id=4, username='john_updated', role=USER, firstName='null', lastName='null', email='null', phoneNumber='null'}
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u1_0.username
+    from
+        user u1_0
+    where
+        u1_0.id=?
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.email,
+        u1_0.first_name,
+        u1_0.last_name,
+        u1_0.phone_number,
+        u2_0.id,
+        u2_0.password,
+        u2_0.role,
+        u2_0.username
+    from
+        user_details u1_0
+    left join
+        user u2_0
+            on u2_0.id=u1_0.user_id
+    where
+        u1_0.user_id=?
+[Hibernate]
+    select
+        u1_0.id,
+        u1_0.password,
+        u1_0.role,
+        u2_0.id,
+        u2_0.email,
+        u2_0.first_name,
+        u2_0.last_name,
+        u2_0.phone_number,
+        u1_0.username
+    from
+        user u1_0
+    left join
+        user_details u2_0
+            on u1_0.id=u2_0.user_id
+    where
+        u1_0.id=?
+[Hibernate]
+    delete
+    from
+        user
+    where
+        id=?
+User deleted.
+Feb 28, 2025 2:27:44 PM org.hibernate.engine.jdbc.connections.internal.DriverManagerConnectionProviderImpl$PoolState stop
+INFO: HHH10001008: Cleaning up connection pool [jdbc:mysql://ubot202.eastops.nl:3504/users_db_jpa?createDatabaseIfNotExist=true]
+
+Process finished with exit code 0

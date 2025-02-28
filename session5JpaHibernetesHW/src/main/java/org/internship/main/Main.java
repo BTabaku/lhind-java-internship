@@ -1,135 +1,101 @@
 package org.internship.main;
 
 import org.internship.configuration.EntityManagerConfiguration;
-import org.internship.model.entity.Flight;
-import org.internship.model.entity.UserDetails;
-import org.internship.model.enums.BookingStatus;
-import org.internship.model.entity.Booking;
-import org.internship.repository.BookingRepository;
-import org.internship.repository.imp.BookingRepositoryImpl;
-import org.internship.repository.FlightRepository;
-import org.internship.repository.UserDetailsRepository;
-import org.internship.repository.imp.FlightRepositoryImpl;
-import org.internship.repository.imp.UserDetailsRepositoryImpl;
+import org.internship.model.dto.FlightDTO;
+import org.internship.model.dto.UserCreateDTO;
+import org.internship.model.dto.UserResponseDTO;
+import org.internship.model.enums.BookingStatus; // or FlightStatusEnum if used
+import org.internship.model.enums.RoleEnum;
+import org.internship.service.FlightService;
+import org.internship.service.UserService;
+import org.internship.service.impl.FlightServiceImpl;
+import org.internship.service.impl.UserServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public class Main {
+     public static void main(String[] args) {
 
-   public static void main(String[] args) {
+          // -------------------------------
+          // Flight Operations
+          // -------------------------------
+          FlightService flightService = new FlightServiceImpl();
 
-        BookingRepository bookingRepo = new BookingRepositoryImpl();
+          // Create a new Flight
+          FlightDTO flightDTO = new FlightDTO(
+                  null, // id will be auto-generated
+                  "New York",
+                  "London",
+                  "British Airways",
+                  "BA117",
+                  LocalDateTime.of(2025, 3, 1, 15, 30),
+                  LocalDateTime.of(2025, 3, 1, 23, 45),
+                  BookingStatus.PENDING.name() // converting enum to String
+          );
 
-        // Create a new booking
-        Booking booking = new Booking(LocalDateTime.now(), BookingStatus.PENDING);
-        bookingRepo.save(booking);
-        System.out.println("Booking saved with ID: " + booking.getId());
+          FlightDTO createdFlight = flightService.createFlight(flightDTO);
+          System.out.println("Flight created: " + createdFlight);
 
-        // Retrieve booking by ID using Optional
-        Optional<Booking> foundBookingOpt = Optional.ofNullable(bookingRepo.findById(booking.getId()));
-        if (foundBookingOpt.isPresent()) {
-             Booking foundBooking = foundBookingOpt.get();
-             System.out.println("Found Booking with status: " + foundBooking.getStatus());
+          // Retrieve Flight by ID
+          Optional<FlightDTO> retrievedFlightOpt = flightService.getFlightById(createdFlight.getId());
+          if (retrievedFlightOpt.isPresent()) {
+               System.out.println("Retrieved Flight: " + retrievedFlightOpt.get());
+          } else {
+               System.out.println("Flight not found");
+          }
 
-             // Update booking status
-             foundBooking.setStatus(BookingStatus.CONFIRMED);
-             bookingRepo.update(foundBooking);
-             System.out.println("Booking updated.");
+          // Update Flight: change destination to "Paris"
+          flightDTO.setDestination("Paris");
+          flightService.updateFlight(createdFlight.getId(), flightDTO);
+          System.out.println("Flight updated.");
 
-             // Retrieve all bookings
-             List<Booking> allBookings = bookingRepo.findAll();
-             System.out.println("All bookings:");
-             allBookings.forEach(b -> System.out.println(" - ID: " + b.getId() + ", Status: " + b.getStatus()));
+          // List all Flights
+          List<FlightDTO> allFlights = flightService.getAllFlights();
+          System.out.println("All Flights:");
+          allFlights.forEach(System.out::println);
 
-             // Delete the booking
-             bookingRepo.delete(foundBooking);
-             System.out.println("Booking deleted.");
-        } else {
-             System.out.println("Booking not found");
-        }
+          // Delete the Flight
+          flightService.deleteFlight(createdFlight.getId());
+          System.out.println("Flight deleted.");
 
-        // Shutdown the EntityManagerFactory when done
-        EntityManagerConfiguration.shutdown();
+          // -------------------------------
+          // User Operations
+          // -------------------------------
+          UserService userService = new UserServiceImpl();
 
-//        FlightRepository flightRepo = new FlightRepositoryImpl();
-//
-//        // Create a new Booking using the provided constructor.
-//        Flight flight = new Flight(
-//                null,                           // id (null, so it will be auto-generated)
-//                "New York",                       // origin
-//                "Brasil",                         // destination
-//                "British Airways",                // airline
-//                "BA117",                          // flight number
-//                LocalDateTime.of(2025, 3, 1, 15, 30),  // departureDate
-//                LocalDateTime.of(2025, 3, 1, 23, 45),  // arrivalDate
-//                BookingStatus.PENDING             // status
-//        );
-//
-//        flightRepo.save(flight);
-//        System.out.println("Booking saved with ID: " + flight.getId());
-//
-//        // Find booking by ID
-//        Flight foundFlight = flightRepo.findById(flight.getId());
-//        if (foundFlight != null) {
-//            System.out.println("Found Booking: " +
-//                    "Origin: " + foundFlight.getOrigin() +
-//                    ", Destination: " + foundFlight.getDestination() +
-//                    ", Status: " + foundFlight.getStatus());
-//        }
-//
-//        // Update booking status to CONFIRMED
-//        foundFlight.setStatus(BookingStatus.CONFIRMED);
-//        flightRepo.update(foundFlight);
-//        System.out.println("Booking updated.");
-//
-//        // Retrieve and list all bookings
-//        List<Flight> allFlights = flightRepo.findAll();
-//        System.out.println("All bookings:");
-//        allFlights.forEach(b -> System.out.println(" - ID: " + b.getId() + ", Origin: " + b.getOrigin() +
-//                ", Destination: " + b.getDestination() + ", Status: " + b.getStatus()));
-//
-//        // Delete the booking
-////        flightRepo.delete(foundFlight);
-////        System.out.println("Booking deleted.");
-//
-//        // Shutdown the EntityManagerFactory when done
-//        EntityManagerConfiguration.shutdown();
-//
-//
-//        // Testing UserDetails Repository
-//        UserDetailsRepository userDetailsRepo = new UserDetailsRepositoryImpl();
-//
-//        // Create a new UserDetails record
-//        UserDetails ud = new UserDetails("John", "Doe", "john.doe@example.com", "1234567890");
-//        userDetailsRepo.save(ud);
-//        System.out.println("UserDetails saved with ID: " + ud.getId());
-//
-//        // Retrieve UserDetails by ID
-//        UserDetails foundUd = userDetailsRepo.findById(ud.getId());
-//        if (foundUd != null) {
-//             System.out.println("Found UserDetails: " + foundUd.getEmail());
-//        }
-//
-//        // Update UserDetails record
-//       foundUd.setPhoneNumber("0987654321");
-//        userDetailsRepo.update(foundUd);
-//        System.out.println("UserDetails updated.");
-//
-//        // Retrieve all UserDetails records
-//        List<UserDetails> allUserDetails = userDetailsRepo.findAll();
-//        System.out.println("All UserDetails records:");
-//        allUserDetails.forEach(u -> System.out.println(" - " + u.getEmail()));
-//
-//        // Delete the UserDetails record
-//        userDetailsRepo.delete(foundUd);
-//        System.out.println("UserDetails deleted.");
-//
-//        // Shutdown the EntityManagerFactory when done
-//        EntityManagerConfiguration.shutdown();
+          // Register a new user
+          UserCreateDTO userCreateDTO = new UserCreateDTO("btabaku", "password123", RoleEnum.USER);
+          UserResponseDTO registeredUser = userService.registerUser(userCreateDTO);
+          System.out.println("Registered User: " + registeredUser);
 
+          // Retrieve user by ID
+          Optional<UserResponseDTO> retrievedUserOpt = userService.getUserById(registeredUser.getId());
+          if (retrievedUserOpt.isPresent()) {
+               System.out.println("Retrieved User: " + retrievedUserOpt.get());
+          } else {
+               System.out.println("User not found");
+          }
 
+          // List all users
+          List<UserResponseDTO> allUsers = userService.getAllUsers();
+          System.out.println("All Users:");
+          allUsers.forEach(System.out::println);
 
-    }
+          // Update user: change username to "john_updated"
+          userService.updateUser(registeredUser.getId(), new UserCreateDTO("john_updated", "password123", RoleEnum.USER));
+          System.out.println("User updated.");
+
+          // Retrieve user after update
+          Optional<UserResponseDTO> updatedUserOpt = userService.getUserById(registeredUser.getId());
+          updatedUserOpt.ifPresent(user -> System.out.println("Updated User: " + user));
+
+          // Delete the user
+          userService.deleteUser(registeredUser.getId());
+          System.out.println("User deleted.");
+
+          // Shutdown the EntityManagerFactory (call once at the end)
+          EntityManagerConfiguration.shutdown();
+     }
 }

@@ -1,41 +1,24 @@
-package org.internship.model.entity;
+//For creating/updating details (includes firstName, lastName, email, phoneNumber)
 
-import jakarta.persistence.*;
+package org.internship.model.dto;
 
-@Entity
-@Table(name = "user_details")
-public class UserDetails {
-
-    @OneToOne
-    @JoinColumn(name = "user_id") // foreign key in user_details table
-    private User user;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UserDetailsDTO {
     private Long id;
-
-    @Column(name = "first_name", length = 50)
     private String firstName;
-
-    @Column(name = "last_name", length = 50)
     private String lastName;
-
-    @Column(name = "email", length = 50)
     private String email;
-
-    @Column(name = "phone_number", length = 50)
     private String phoneNumber;
 
-    public UserDetails() {
-    }
-    public UserDetails(String firstName, String lastName, String email, String phoneNumber) {
+    // Constructor
+    public UserDetailsDTO(Long id, String firstName, String lastName, String email, String phoneNumber) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
-    // Getters and Setters...
+    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -65,14 +48,5 @@ public class UserDetails {
     }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-    public User getUser() {
-        return user;
-    }
-    public void setUser(User user) {
-        this.user = user;
-        if (user != null && user.getUserDetails() != this) {
-            user.setUserDetails(this);
-        }
     }
 }
