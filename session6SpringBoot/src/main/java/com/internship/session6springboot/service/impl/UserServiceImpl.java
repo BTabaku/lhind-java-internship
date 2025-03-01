@@ -6,11 +6,12 @@ import com.internship.session6springboot.entity.User;
 import com.internship.session6springboot.enums.RoleEnum;
 import com.internship.session6springboot.repository.UserRepository;
 import com.internship.session6springboot.service.UserService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;

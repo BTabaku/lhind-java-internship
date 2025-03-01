@@ -9,12 +9,15 @@ import com.internship.session6springboot.repository.FlightRepository;
 import com.internship.session6springboot.repository.UserRepository;
 import com.internship.session6springboot.service.BookingService;
 
+import org.springframework.stereotype.Service;
+
 import com.internship.session6springboot.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;

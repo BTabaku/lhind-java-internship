@@ -1,8 +1,8 @@
 package com.internship.session6springboot.service.impl;
 
+import org.springframework.stereotype.Service;
 import com.internship.session6springboot.dto.FlightDTO;
 import com.internship.session6springboot.entity.Flight;
-import com.internship.session6springboot.enums.BookingStatus;
 import com.internship.session6springboot.repository.FlightRepository;
 import com.internship.session6springboot.service.FlightService;
 import com.internship.session6springboot.exception.ResourceNotFoundException;
@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Service
 public class FlightServiceImpl implements FlightService {
 
     private final FlightRepository flightRepository;
