@@ -8,6 +8,8 @@ public class InternshipfinalprojectApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(InternshipfinalprojectApplication.class, args);
+
+		System.out.println("Hello World");
 	}
 
 }
