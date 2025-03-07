@@ -19,6 +19,8 @@ target/
 *.iml
 *.ipr
 
+content_code_files.txt
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

@@ -10,4 +10,7 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
 //    Filter Job by title or Location
     Page<Job> findByTitleOrLocation(String title, String location, Pageable pageable);
 
+    Page<Job> findByEmployerIdAndTitleOrLocation(Integer employerId, String title, String location, Pageable pageable);
+
+    Page<Job> findByEmployerId(Integer employerId, Pageable pageable);
 }

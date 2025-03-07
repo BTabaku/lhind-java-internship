@@ -16,10 +16,17 @@ public class JobService {
         this.jobRepository = jobRepository;
     }
 
-    public Page<Job> getAllJobs(String title, String location, Pageable pageable) {
-        if (title != null || location != null) {
-            return jobRepository.findByTitleOrLocation(title, location, pageable);
-        }
-        return jobRepository.findAll(pageable);
+    public Job saveJob(Job job) {
+        return jobRepository.save(job);
     }
+
+    public Page<Job> getJobsByEmployer(Integer employerId, String title, String location, Pageable pageable) {
+        if (title != null || location != null) {
+            return jobRepository.findByEmployerIdAndTitleOrLocation(employerId, title, location, pageable);
+        }
+        return jobRepository.findByEmployerId(employerId, pageable);
+    }
+
+
+
 }

@@ -3,8 +3,7 @@ package com.lhind.internshipfinalproject.enums;
 public enum Role {
 
     ADMIN,
-    EMPLOYEE,
-
+    EMPLOYER,
     JOB_SEEKER
 
 }
