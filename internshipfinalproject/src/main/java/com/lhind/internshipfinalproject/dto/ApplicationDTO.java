@@ -13,4 +13,27 @@ public class ApplicationDTO {
 
     private ApplicationStatus status;
 
+    public Integer getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(Integer jobId) {
+        this.jobId = jobId;
+    }
+
+    public Integer getJobSeekerId() {
+        return jobSeekerId;
+    }
+
+    public void setJobSeekerId(Integer jobSeekerId) {
+        this.jobSeekerId = jobSeekerId;
+    }
+
+    public ApplicationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
+    }
 }

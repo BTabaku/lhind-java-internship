@@ -22,7 +22,7 @@ public class JobService {
 
     public Page<Job> getJobsByEmployer(Integer employerId, String title, String location, Pageable pageable) {
         if (title != null || location != null) {
-            return jobRepository.findByEmployerIdAndTitleOrLocation(employerId, title, location, pageable);
+            return jobRepository.findEmployerJobs(employerId, title, location, pageable);
         }
         return jobRepository.findByEmployerId(employerId, pageable);
     }

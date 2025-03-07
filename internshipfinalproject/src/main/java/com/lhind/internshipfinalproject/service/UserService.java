@@ -19,6 +19,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
 
+
     public Page<UserDTO> getAllUsers(Role role, Pageable pageable) {
         if (role != null) {
             return userRepository.findByRole(role, pageable).map(userMapper::toDTO);

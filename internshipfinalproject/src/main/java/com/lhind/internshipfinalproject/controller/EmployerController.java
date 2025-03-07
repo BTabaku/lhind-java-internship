@@ -25,16 +25,17 @@ public class EmployerController {
     private final ReviewService reviewService;
 
     // Get jobs posted by employer with filtering
+
     @GetMapping("/jobs")
     public Page<JobDTO> getEmployerJobs(
+            @RequestParam Integer employerId, // Should come from authentication in real scenario
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String location,
             Pageable pageable) {
 
-        return jobService.getJobsByEmployer(title, location, pageable)
+        return jobService.getJobsByEmployer(employerId, title, location, pageable)
                 .map(jobMapper::toDTO);
     }
-
 
     // Get applications for a job
     @GetMapping("/jobs/{jobId}/applications")
@@ -48,8 +49,10 @@ public class EmployerController {
     @PutMapping("/applications/{applicationId}/status")
     public ApplicationDTO updateApplicationStatus(
             @PathVariable Integer applicationId,
-            @RequestParam ApplicationStatus status) {
-        return applicationService.updateApplicationStatus(applicationId, status);
+            @RequestParam ApplicationStatus status,
+            @RequestParam Integer employerId // Get employer ID from request (temporary)
+    ) {
+        return applicationService.updateApplicationStatus(applicationId, status, employerId);
     }
 
     @PostMapping("/jobs/{jobId}/reviews")
@@ -58,7 +61,6 @@ public class EmployerController {
             @Valid @RequestBody ReviewDto reviewDto) {
         return reviewService.addReview(jobId, reviewDto);
     }
-
 
 
 }
