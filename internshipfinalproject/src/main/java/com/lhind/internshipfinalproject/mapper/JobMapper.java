@@ -14,11 +14,18 @@ public abstract class JobMapper {
     @Autowired
     private UserRepository userRepository;
 
+    // Map JobDTO to Job entity
     @Mapping(target = "employer", source = "employerId")
+    @Mapping(target = "title", source = "title")
+    @Mapping(target = "description", source = "description")
+    @Mapping(target = "location", source = "location")
     public abstract Job toEntity(JobDTO jobDTO);
 
+    // Map Job entity to JobDTO
+    @Mapping(target = "employerId", source = "employer.id")
     public abstract JobDTO toDTO(Job job);
 
+    // Fetch User from employerId
     protected User mapEmployerIdToUser(Integer employerId) {
         return userRepository.findById(employerId)
                 .orElseThrow(() -> new RuntimeException("Employer not found"));

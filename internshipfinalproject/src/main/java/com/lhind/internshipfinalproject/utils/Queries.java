@@ -6,11 +6,13 @@ public class Queries {
             "SELECT j FROM Job j WHERE " +
                     "(:title IS NULL OR LOWER(j.title) LIKE LOWER(CONCAT('%', :title, '%'))) AND " +
                     "(:location IS NULL OR LOWER(j.location) LIKE LOWER(CONCAT('%', :location, '%')))";
+
+    // In Queries.java
     public static final String EMPLOYER_JOBS_FILTERED =
             "SELECT j FROM Job j WHERE " +
                     "j.employer.id = :employerId AND " +
-                    "(:title IS NULL OR LOWER(j.title) LIKE LOWER(CONCAT('%', :title, '%')) AND " +
-                    "(:location IS NULL OR LOWER(j.location) LIKE LOWER(CONCAT('%', :location, '%'))";
+                    "(:title IS NULL OR LOWER(j.title) LIKE LOWER(CONCAT('%', :title, '%'))) AND " +
+                    "(:location IS NULL OR LOWER(j.location) LIKE LOWER(CONCAT('%', :location, '%')))";
 
     // Application-related queries
     public static final String APPLICATIONS_FOR_JOB =

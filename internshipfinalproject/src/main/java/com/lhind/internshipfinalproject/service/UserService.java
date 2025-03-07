@@ -1,7 +1,6 @@
 package com.lhind.internshipfinalproject.service;
 
 import com.lhind.internshipfinalproject.dto.UserDTO;
-import com.lhind.internshipfinalproject.entity.User;
 import com.lhind.internshipfinalproject.enums.Role;
 import com.lhind.internshipfinalproject.mapper.UserMapper;
 import com.lhind.internshipfinalproject.repository.UserRepository;
