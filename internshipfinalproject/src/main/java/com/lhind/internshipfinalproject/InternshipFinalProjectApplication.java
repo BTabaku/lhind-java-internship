@@ -11,13 +11,6 @@ public class InternshipFinalProjectApplication {
     public static void main(String[] args) {
         SpringApplication.run(InternshipFinalProjectApplication.class, args);
     }
-
-    @Bean
-    public CommandLineRunner commandLineRunner() {
-        return args -> {
-            System.out.println("Application is running...");
-        };
-    }
 }
 
 //TODO List:
