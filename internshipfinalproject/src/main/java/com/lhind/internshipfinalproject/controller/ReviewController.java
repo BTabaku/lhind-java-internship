@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/v1/employer/reviews") // Fixed from '/employee'
+@RequestMapping("/api/v1/employee/reviews")
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;
