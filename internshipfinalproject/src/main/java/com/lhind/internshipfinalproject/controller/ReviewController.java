@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -17,7 +18,10 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     @GetMapping
-    public Page<ReviewDto> getAllReviews(Pageable pageable) {
-        return reviewService.getAllReviews(pageable);
+    public Page<ReviewDto> getReviews(
+            @RequestParam(required = false) Integer jobId,
+            @RequestParam(required = false) Integer rating,
+            Pageable pageable) {
+        return reviewService.getReviews(jobId, rating, pageable);
     }
 }

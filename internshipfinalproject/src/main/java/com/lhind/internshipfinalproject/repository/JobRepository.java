@@ -13,6 +13,7 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
     Page<Job> searchJobs(
             @Param("title") String title,
             @Param("location") String location,
+            @Param("employer") String employer,
             Pageable pageable
     );
 

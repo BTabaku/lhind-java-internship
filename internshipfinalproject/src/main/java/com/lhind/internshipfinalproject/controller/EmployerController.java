@@ -3,6 +3,8 @@ package com.lhind.internshipfinalproject.controller;
 import com.lhind.internshipfinalproject.dto.ApplicationDTO;
 import com.lhind.internshipfinalproject.dto.JobDTO;
 import com.lhind.internshipfinalproject.dto.ReviewDto;
+import com.lhind.internshipfinalproject.entity.Job;
+import com.lhind.internshipfinalproject.entity.User;
 import com.lhind.internshipfinalproject.enums.ApplicationStatus;
 import com.lhind.internshipfinalproject.mapper.JobMapper;
 import com.lhind.internshipfinalproject.service.ApplicationService;
@@ -12,6 +14,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,38 +31,35 @@ public class EmployerController {
     // Get jobs posted by employer with filtering
 
     @GetMapping("/jobs")
-    public Page<JobDTO> getEmployerJobs(
-            @RequestParam Integer employerId, // Should come from authentication in real scenario
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) String location,
-            Pageable pageable) {
+    public Page<JobDTO> getEmployerJobs(@AuthenticationPrincipal User user, @RequestParam(required = false) String title, @RequestParam(required = false) String location, Pageable pageable) {
 
-        return jobService.getJobsByEmployer(employerId, title, location, pageable)
-                .map(jobMapper::toDTO);
+        return jobService.getJobsByEmployer(user.getId(), title, location, pageable).map(jobMapper::toDTO);
     }
 
     // Get applications for a job
     @GetMapping("/jobs/{jobId}/applications")
-    public Page<ApplicationDTO> getApplicationsForJob(
-            @PathVariable Integer jobId,
-            @RequestParam(required = false) ApplicationStatus status,
-            Pageable pageable) {
+    public Page<ApplicationDTO> getApplicationsForJob(@PathVariable Integer jobId, @RequestParam(required = false) ApplicationStatus status, Pageable pageable) {
         return applicationService.getApplicationsByJobAndStatus(jobId, status, pageable);
     }
 
+    @PostMapping("/jobs")
+    public ResponseEntity<JobDTO> postJob(@AuthenticationPrincipal User user, @Valid @RequestBody JobDTO jobDTO) {
+
+        jobDTO.setEmployerId(user.getId()); // Set from authenticated user
+        Job job = jobMapper.toEntity(jobDTO);
+        Job savedJob = jobService.saveJob(job);
+        return ResponseEntity.ok(jobMapper.toDTO(savedJob));
+    }
+
+
     @PutMapping("/applications/{applicationId}/status")
-    public ApplicationDTO updateApplicationStatus(
-            @PathVariable Integer applicationId,
-            @RequestParam ApplicationStatus status,
-            @RequestParam Integer employerId // Get employer ID from request (temporary)
+    public ApplicationDTO updateApplicationStatus(@PathVariable Integer applicationId, @RequestParam ApplicationStatus status, @RequestParam Integer employerId // Get employer ID from request (temporary)
     ) {
         return applicationService.updateApplicationStatus(applicationId, status, employerId);
     }
 
     @PostMapping("/jobs/{jobId}/reviews")
-    public ReviewDto addReview(
-            @PathVariable Integer jobId,
-            @Valid @RequestBody ReviewDto reviewDto) {
+    public ReviewDto addReview(@PathVariable Integer jobId, @Valid @RequestBody ReviewDto reviewDto) {
         return reviewService.addReview(jobId, reviewDto);
     }
 

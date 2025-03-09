@@ -35,8 +35,9 @@ public class ReviewService {
         return reviewMapper.toDTO(reviewRepository.save(review));
     }
 
-    public Page<ReviewDto> getAllReviews(Pageable pageable) {
-        return reviewRepository.findAll(pageable)
+
+    public Page<ReviewDto> getReviews(Integer jobId, Integer rating, Pageable pageable) {
+        return reviewRepository.findReviewsByJobAndRating(jobId, rating, pageable)
                 .map(reviewMapper::toDTO);
     }
 }

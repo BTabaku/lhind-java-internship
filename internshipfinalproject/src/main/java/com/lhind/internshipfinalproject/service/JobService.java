@@ -27,6 +27,7 @@ public class JobService {
         return jobRepository.findByEmployerId(employerId, pageable);
     }
 
-
-
+    public Page<Job> searchJobs(String title, String location, String employer, Pageable pageable) {
+        return jobRepository.searchJobs(title, location, employer , pageable);
+    }
 }

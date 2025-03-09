@@ -15,4 +15,5 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
             @Param("rating") Integer rating,
             Pageable pageable
     );
+
 }
