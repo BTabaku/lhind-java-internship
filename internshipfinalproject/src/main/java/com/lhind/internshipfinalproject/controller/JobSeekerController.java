@@ -34,10 +34,11 @@ public class JobSeekerController {
 
     @GetMapping("/applications")
     public Page<ApplicationDTO> getMyApplications(
-            @RequestParam Integer jobSeekerId, // Should come from authentication
+            @AuthenticationPrincipal User user, // Get jobSeekerId from authenticated user
             @RequestParam(required = false) ApplicationStatus status,
             Pageable pageable
     ) {
+        Integer jobSeekerId = user.getId();
         if (status != null) {
             return applicationService.getApplicationsByJobSeekerAndStatus(jobSeekerId, status, pageable);
         }

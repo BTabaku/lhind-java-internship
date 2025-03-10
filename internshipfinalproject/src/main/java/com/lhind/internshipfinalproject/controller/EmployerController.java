@@ -2,7 +2,6 @@ package com.lhind.internshipfinalproject.controller;
 
 import com.lhind.internshipfinalproject.dto.ApplicationDTO;
 import com.lhind.internshipfinalproject.dto.JobDTO;
-import com.lhind.internshipfinalproject.dto.ReviewDto;
 import com.lhind.internshipfinalproject.entity.Job;
 import com.lhind.internshipfinalproject.entity.User;
 import com.lhind.internshipfinalproject.enums.ApplicationStatus;
@@ -28,40 +27,42 @@ public class EmployerController {
     private final ApplicationService applicationService;
     private final ReviewService reviewService;
 
-    // Get jobs posted by employer with filtering
-
     @GetMapping("/jobs")
-    public Page<JobDTO> getEmployerJobs(@AuthenticationPrincipal User user, @RequestParam(required = false) String title, @RequestParam(required = false) String location, Pageable pageable) {
-
-        return jobService.getJobsByEmployer(user.getId(), title, location, pageable).map(jobMapper::toDTO);
+    public ResponseEntity<Page<JobDTO>> getEmployerJobs(
+            @AuthenticationPrincipal User user,
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String location,
+            Pageable pageable) {
+        Page<JobDTO> jobs = jobService.getJobsByEmployer(user.getId(), title, location, pageable)
+                .map(jobMapper::toDTO);
+        return ResponseEntity.ok(jobs);
     }
 
-    // Get applications for a job
     @GetMapping("/jobs/{jobId}/applications")
-    public Page<ApplicationDTO> getApplicationsForJob(@PathVariable Integer jobId, @RequestParam(required = false) ApplicationStatus status, Pageable pageable) {
-        return applicationService.getApplicationsByJobAndStatus(jobId, status, pageable);
+    public ResponseEntity<Page<ApplicationDTO>> getApplicationsForJob(
+            @PathVariable Integer jobId,
+            @RequestParam(required = false) ApplicationStatus status,
+            Pageable pageable) {
+        Page<ApplicationDTO> applications = applicationService.getApplicationsByJobAndStatus(jobId, status, pageable);
+        return ResponseEntity.ok(applications);
     }
 
     @PostMapping("/jobs")
-    public ResponseEntity<JobDTO> postJob(@AuthenticationPrincipal User user, @Valid @RequestBody JobDTO jobDTO) {
-
-        jobDTO.setEmployerId(user.getId()); // Set from authenticated user
+    public ResponseEntity<JobDTO> postJob(
+            @AuthenticationPrincipal User user,
+            @Valid @RequestBody JobDTO jobDTO) {
+        jobDTO.setEmployerId(user.getId());
         Job job = jobMapper.toEntity(jobDTO);
         Job savedJob = jobService.saveJob(job);
         return ResponseEntity.ok(jobMapper.toDTO(savedJob));
     }
 
-
     @PutMapping("/applications/{applicationId}/status")
-    public ApplicationDTO updateApplicationStatus(@PathVariable Integer applicationId, @RequestParam ApplicationStatus status, @RequestParam Integer employerId // Get employer ID from request (temporary)
-    ) {
-        return applicationService.updateApplicationStatus(applicationId, status, employerId);
+    public ResponseEntity<ApplicationDTO> updateApplicationStatus(
+            @PathVariable Integer applicationId,
+            @RequestParam ApplicationStatus status,
+            @AuthenticationPrincipal User user) {
+        ApplicationDTO updatedApplication = applicationService.updateApplicationStatus(applicationId, status, user.getId());
+        return ResponseEntity.ok(updatedApplication);
     }
-
-    @PostMapping("/jobs/{jobId}/reviews")
-    public ReviewDto addReview(@PathVariable Integer jobId, @Valid @RequestBody ReviewDto reviewDto) {
-        return reviewService.addReview(jobId, reviewDto);
-    }
-
-
 }

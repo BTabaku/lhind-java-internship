@@ -1,6 +1,5 @@
 package com.lhind.internshipfinalproject.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -23,8 +22,6 @@ public class Review {
     private Job job;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private User employee;
-
-
+    @JoinColumn(name = "employer_id")
+    private User employer; // Renamed from employee to employer
 }

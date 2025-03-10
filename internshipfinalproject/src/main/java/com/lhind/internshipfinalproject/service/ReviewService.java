@@ -21,20 +21,16 @@ public class ReviewService {
     private final UserRepository userRepository;
     private final ReviewMapper reviewMapper; // Properly injected
 
-    public ReviewDto addReview(Integer jobId, ReviewDto reviewDto) {
+    public ReviewDto addReview(Integer jobId, ReviewDto reviewDto, User employer) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found"));
 
-        User employee = userRepository.findById(reviewDto.getEmployeeId())
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
-
         Review review = reviewMapper.toEntity(reviewDto);
         review.setJob(job);
-        review.setEmployee(employee);
+        review.setEmployer(employer); // Set the employer instead of employee
 
         return reviewMapper.toDTO(reviewRepository.save(review));
     }
-
 
     public Page<ReviewDto> getReviews(Integer jobId, Integer rating, Pageable pageable) {
         return reviewRepository.findReviewsByJobAndRating(jobId, rating, pageable)

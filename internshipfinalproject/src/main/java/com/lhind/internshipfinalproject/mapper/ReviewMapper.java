@@ -8,6 +8,7 @@ import com.lhind.internshipfinalproject.repository.JobRepository;
 import com.lhind.internshipfinalproject.repository.UserRepository;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
@@ -21,23 +22,25 @@ public abstract class ReviewMapper {
 
     // Map Review entity to ReviewDto
     @Mapping(target = "jobId", source = "job.id")
-    @Mapping(target = "employeeId", source = "employee.id")
+    @Mapping(target = "employerId", source = "employer.id")
     public abstract ReviewDto toDTO(Review review);
 
-    // Map ReviewDto to Review entity
-    @Mapping(target = "job", source = "jobId")
-    @Mapping(target = "employee", source = "employeeId")
+    // Map ReviewDto to Review entity with custom fetch logic
+    @Mapping(target = "job", source = "jobId", qualifiedByName = "mapJobIdToJob")
+    @Mapping(target = "employer", source = "employerId", qualifiedByName = "mapEmployerIdToUser")
     public abstract Review toEntity(ReviewDto reviewDto);
 
     // Fetch Job from jobId
+    @Named("mapJobIdToJob")
     protected Job mapJobIdToJob(Integer jobId) {
         return jobRepository.findById(jobId)
-                .orElseThrow(() -> new RuntimeException("Job not found"));
+                .orElseThrow(() -> new RuntimeException("Job not found with id: " + jobId));
     }
 
-    // Fetch User from employeeId
-    protected User mapEmployeeIdToUser(Integer employeeId) {
-        return userRepository.findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee not found"));
+    // Fetch User from employerId
+    @Named("mapEmployerIdToUser")
+    protected User mapEmployerIdToUser(Integer employerId) {
+        return userRepository.findById(employerId)
+                .orElseThrow(() -> new RuntimeException("Employer not found with id: " + employerId));
     }
 }

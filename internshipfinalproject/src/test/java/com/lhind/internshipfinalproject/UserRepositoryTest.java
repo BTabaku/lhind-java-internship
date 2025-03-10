@@ -3,13 +3,9 @@ package com.lhind.internshipfinalproject;
 import com.lhind.internshipfinalproject.entity.User;
 import com.lhind.internshipfinalproject.enums.Role;
 import com.lhind.internshipfinalproject.repository.UserRepository;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,19 +15,17 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    @BeforeEach
-    void setup() {
-        User user = new User();
-        user.setUsername("testuser");
-        user.setPassword("password");
-        user.setRole(Role.JOB_SEEKER);
-        userRepository.save(user);
-    }
-
     @Test
-    void testFindByUsername() {
-        Optional<User> user = userRepository.findById(1);
-        assertThat(user).isPresent();
-        assertThat(user.get().getUsername()).isEqualTo("testuser");
+    public void testSaveUser() {
+        User user = new User();
+        user.setUsername("jobseeker");
+        user.setPassword("password");
+        user.setRole(Role.JOB_SEEKER); // ✅ Fix case sensitivity issue here
+
+        userRepository.save(user);
+
+        User savedUser = userRepository.findByUsername("jobseeker").orElse(null);
+        assertThat(savedUser).isNotNull();
+        assertThat(savedUser.getRole()).isEqualTo(Role.JOB_SEEKER);
     }
 }
