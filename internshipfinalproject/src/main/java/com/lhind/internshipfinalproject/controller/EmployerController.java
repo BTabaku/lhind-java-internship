@@ -79,7 +79,6 @@ public class EmployerController {
         return ResponseEntity.ok(updatedApplication);
     }
 
-    // This endpoint is responsible for adding a review.
     @PostMapping("/reviews/jobs/{jobId}")
     public ResponseEntity<ReviewDto> addReview(
             @PathVariable Integer jobId,

@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
@@ -17,8 +20,11 @@ public class AuthController {
     private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody UserDTO userDTO) {
-        userService.saveUser(userDTO);
-        return ResponseEntity.ok("User registered successfully");
+    public ResponseEntity<Map<String, Object>> registerUser(@RequestBody UserDTO userDTO) {
+        UserDTO registeredUser = userService.saveUser(userDTO);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "User registered successfully");
+        response.put("user", registeredUser);
+        return ResponseEntity.ok(response);
     }
 }
