@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     private final UserService userService;
+
     @GetMapping("/users")
     public ResponseEntity<Page<UserDTO>> getAllUsers(
             @RequestParam(required = false) Role role,
@@ -23,10 +24,8 @@ public class AdminController {
     }
 
     @DeleteMapping("/users/{id}")
-
     public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
-        userService.deleteUserById(id);
+        userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
-
 }

@@ -1,52 +1,74 @@
 package com.lhind.internshipfinalproject;
 
-import com.lhind.internshipfinalproject.dto.UserDTO;
-import com.lhind.internshipfinalproject.entity.User;
 import com.lhind.internshipfinalproject.mapper.UserMapper;
 import com.lhind.internshipfinalproject.repository.UserRepository;
 import com.lhind.internshipfinalproject.service.UserService;
-import org.junit.jupiter.api.BeforeEach;
+import com.lhind.internshipfinalproject.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
 class UserServiceTest {
 
-    @Mock
-    private UserRepository userRepository;
+    @Configuration
+    static class TestConfig {
 
-    @Mock
-    private UserMapper userMapper;
+        @Bean
+        @Primary
+        public UserRepository userRepository() {
+            // Create and return a Mockito mock for UserRepository
+            return mock(UserRepository.class);
+        }
 
-    @InjectMocks
-    private UserService userService;
+        @Bean
+        @Primary
+        public UserMapper userMapper() {
+            // Create and return a Mockito mock for UserMapper
+            return mock(UserMapper.class);
+        }
 
-    @BeforeEach
-    void setup() {
-        // MockitoExtension initializes the mocks
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+
+        @Bean
+        public UserService userService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
+            // Instantiate your UserServiceImpl with all required dependencies.
+            return new UserServiceImpl(userRepository, userMapper, passwordEncoder);
+        }
+    }
+
+    private final UserRepository userRepository;
+    private final UserService userService;
+
+    // Spring will inject the beans defined in TestConfig
+    public UserServiceTest(UserRepository userRepository, UserService userService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
     @Test
     void testGetAllUsers() {
         Pageable pageable = Pageable.ofSize(10);
-        // Create an empty Page of Users (not UserDTO)
-        Page<User> emptyUserPage = new PageImpl<>(Collections.emptyList(), pageable, 0);
-        when(userRepository.findAll(pageable)).thenReturn(emptyUserPage);
+        // Stub the repository method to return an empty page (avoid returning null)
+        when(userRepository.findAll(pageable)).thenReturn(new PageImpl<>(Collections.emptyList()));
 
-        // When the service calls findAll(), it then maps the empty list via userMapper::toDTO,
-        // resulting in an empty Page<UserDTO>
         Page<UserDTO> result = userService.getAllUsers(null, pageable);
 
         assertThat(result).isEmpty();
