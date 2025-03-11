@@ -22,17 +22,17 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
-                .requestMatchers("/api/v1/employer/**").hasRole("EMPLOYER")
-                .requestMatchers("/api/v1/jobseeker/**").hasRole("JOB_SEEKER")
-                .anyRequest().authenticated()
-                .and()
-                .csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .httpBasic();
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/employer/**").hasRole("EMPLOYER")
+                        .requestMatchers("/api/v1/jobseeker/**").hasRole("JOB_SEEKER")
+                        .anyRequest().authenticated()
+                )
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .httpBasic(httpBasic -> {});  // or use lambda if further configuration is needed
 
         return http.build();
     }
