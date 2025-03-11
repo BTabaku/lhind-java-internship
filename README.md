@@ -13,3 +13,7 @@
 #### [Session5JpaHibernetes Homework](https://github.com/BTabaku/lhind-java-internship/tree/main/session5JpaHibernetesHW)
 
 #### [Session6SpringBoot](https://github.com/BTabaku/lhind-java-internship/tree/main/session6SpringBoot)
+
+
+
+### [Java Internship Final Project Job Portal]([https://github.com/BTabaku/lhind-java-internship/tree/main/session6SpringBoot](https://github.com/BTabaku/lhind-java-internship/tree/setting-up-fnal-project/internshipfinalproject))
