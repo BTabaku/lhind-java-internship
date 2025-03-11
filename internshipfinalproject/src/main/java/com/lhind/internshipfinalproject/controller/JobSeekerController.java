@@ -36,13 +36,11 @@ public class JobSeekerController {
 
     @GetMapping("/applications")
     public Page<ApplicationDTO> getMyApplications(
-            // Use the fully qualified class name for the security principal
             @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal,
             @RequestParam(required = false) ApplicationStatus status,
             @RequestParam(required = false) String title,
             Pageable pageable
     ) {
-        // Lookup the full user entity from the username provided by the security principal
         User user = userRepository.findByUsername(principal.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Integer jobSeekerId = user.getId();
@@ -63,7 +61,6 @@ public class JobSeekerController {
             @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal,
             @Valid @RequestBody ApplicationDTO applicationDTO) {
 
-        // Lookup the full user entity from the username provided by the security principal
         User user = userRepository.findByUsername(principal.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         applicationDTO.setJobSeekerId(user.getId());
@@ -82,24 +79,43 @@ public class JobSeekerController {
 
     @PostMapping("/upload-resume")
     public ResponseEntity<String> uploadResume(
-            @RequestParam("jobSeekerId") Integer jobSeekerId,
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal,
             @RequestParam("file") MultipartFile file) throws IOException {
+
+        // Lookup the full user entity using the principal's username
+        User user = userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (file.isEmpty()) {
             return ResponseEntity.badRequest().body("File is empty");
         }
 
-        String uploadDir = "uploads/resumes/";
-        Path uploadPath = Paths.get(uploadDir);
+        // Use the current working directory as base (this will be your project folder if run from there)
+        String baseUploadDir = System.getProperty("user.dir") + "/uploads/resumes/";
+        Path uploadPath = Paths.get(baseUploadDir);
         if (!uploadPath.toFile().exists()) {
-            uploadPath.toFile().mkdirs();
+            boolean created = uploadPath.toFile().mkdirs();
+            if (!created) {
+                return ResponseEntity.status(500).body("Could not create upload directory");
+            }
         }
 
-        String fileName = jobSeekerId + "_" + file.getOriginalFilename();
+        // Sanitize the original filename
+        String originalFilename = file.getOriginalFilename();
+        if (originalFilename == null) {
+            return ResponseEntity.badRequest().body("File name is missing");
+        }
+        String cleanFileName = Paths.get(originalFilename).getFileName().toString();
+        cleanFileName = cleanFileName.replaceAll("\\s+", "_");
+
+        // Prefix the file name with the user's ID to avoid collisions
+        String fileName = user.getId() + "_" + cleanFileName;
+
         File destFile = new File(uploadPath.toFile(), fileName);
         file.transferTo(destFile);
 
-        log.info("Resume uploaded successfully: {}", destFile.getAbsolutePath());
-        return ResponseEntity.ok("Resume uploaded successfully");
+        return ResponseEntity.ok("Resume uploaded successfully to " + destFile.getAbsolutePath());
     }
+
+
 }
