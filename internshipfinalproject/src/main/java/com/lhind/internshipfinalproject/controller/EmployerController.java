@@ -2,6 +2,7 @@ package com.lhind.internshipfinalproject.controller;
 
 import com.lhind.internshipfinalproject.dto.ApplicationDTO;
 import com.lhind.internshipfinalproject.dto.JobDTO;
+import com.lhind.internshipfinalproject.dto.ReviewDto;
 import com.lhind.internshipfinalproject.entity.Job;
 import com.lhind.internshipfinalproject.entity.User;
 import com.lhind.internshipfinalproject.enums.ApplicationStatus;
@@ -35,7 +36,7 @@ public class EmployerController {
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String location,
             Pageable pageable) {
-        // Lookup the full User (employer) entity from the username provided by the security principal
+        // Lookup full User (employer) entity from username
         User employer = userRepository.findByUsername(principal.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Page<JobDTO> jobs = jobService.getJobsByEmployer(employer.getId(), title, location, pageable)
@@ -50,7 +51,7 @@ public class EmployerController {
         // Lookup the full User (employer) entity
         User employer = userRepository.findByUsername(principal.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        // Set the employerId in the DTO so that the service layer can use it
+        // Set employerId in DTO so that service can use it
         jobDTO.setEmployerId(employer.getId());
         Job job = jobMapper.toEntity(jobDTO);
         Job savedJob = jobService.saveJob(job);
@@ -76,5 +77,18 @@ public class EmployerController {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         ApplicationDTO updatedApplication = applicationService.updateApplicationStatus(applicationId, status, employer.getId());
         return ResponseEntity.ok(updatedApplication);
+    }
+
+    // This endpoint is responsible for adding a review.
+    @PostMapping("/reviews/jobs/{jobId}")
+    public ResponseEntity<ReviewDto> addReview(
+            @PathVariable Integer jobId,
+            @RequestBody ReviewDto reviewDto,
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal) {
+        // Lookup full employer entity from username
+        User employer = userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        ReviewDto savedReview = reviewService.addReview(jobId, reviewDto, employer);
+        return ResponseEntity.ok(savedReview);
     }
 }
