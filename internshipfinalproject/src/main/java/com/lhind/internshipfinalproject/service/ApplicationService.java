@@ -10,4 +10,9 @@ public interface ApplicationService {
     ApplicationDTO updateApplicationStatus(Integer applicationId, ApplicationStatus status, Integer employerId);
     Page<ApplicationDTO> getApplicationsByJobSeeker(Integer jobSeekerId, Pageable pageable);
     Page<ApplicationDTO> getApplicationsByJobSeekerAndStatus(Integer jobSeekerId, ApplicationStatus status, Pageable pageable);
+
+    // Newly added methods:
+    Page<ApplicationDTO> getApplicationsByJobAndStatus(Integer jobId, ApplicationStatus status, Pageable pageable);
+    Page<ApplicationDTO> getApplicationsByJobSeekerAndTitle(Integer jobSeekerId, String title, Pageable pageable);
+    Page<ApplicationDTO> getApplicationsByJobSeekerStatusAndTitle(Integer jobSeekerId, ApplicationStatus status, String title, Pageable pageable);
 }

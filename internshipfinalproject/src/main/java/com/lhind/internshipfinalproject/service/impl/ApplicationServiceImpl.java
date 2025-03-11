@@ -10,10 +10,10 @@ import com.lhind.internshipfinalproject.repository.ApplicationRepository;
 import com.lhind.internshipfinalproject.repository.JobRepository;
 import com.lhind.internshipfinalproject.repository.UserRepository;
 import com.lhind.internshipfinalproject.service.ApplicationService;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ApplicationServiceImpl implements ApplicationService {
@@ -74,6 +74,24 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public Page<ApplicationDTO> getApplicationsByJobSeekerAndStatus(Integer jobSeekerId, ApplicationStatus status, Pageable pageable) {
         return applicationRepository.findByJobSeekerIdAndStatus(jobSeekerId, status, pageable)
+                .map(applicationMapper::toDTO);
+    }
+
+    @Override
+    public Page<ApplicationDTO> getApplicationsByJobAndStatus(Integer jobId, ApplicationStatus status, Pageable pageable) {
+        return applicationRepository.getApplicationsByJobAndStatus(jobId, status, pageable)
+                .map(applicationMapper::toDTO);
+    }
+
+    @Override
+    public Page<ApplicationDTO> getApplicationsByJobSeekerAndTitle(Integer jobSeekerId, String title, Pageable pageable) {
+        return applicationRepository.findByJobSeekerIdAndJobTitle(jobSeekerId, title, pageable)
+                .map(applicationMapper::toDTO);
+    }
+
+    @Override
+    public Page<ApplicationDTO> getApplicationsByJobSeekerStatusAndTitle(Integer jobSeekerId, ApplicationStatus status, String title, Pageable pageable) {
+        return applicationRepository.findByJobSeekerIdAndStatusAndJobTitle(jobSeekerId, status, title, pageable)
                 .map(applicationMapper::toDTO);
     }
 }

@@ -32,18 +32,18 @@ public class JobSeekerController {
     private final JobService jobService;
     private final JobMapper jobMapper;
 
+    /**
+     * Retrieve the current job seeker's applications with optional filters.
+     * If both status and title are provided, the service returns applications matching both criteria.
+     */
     @GetMapping("/applications")
     public Page<ApplicationDTO> getMyApplications(
             @AuthenticationPrincipal User user,
             @RequestParam(required = false) ApplicationStatus status,
-            // NEW: also filter by job title
             @RequestParam(required = false) String title,
             Pageable pageable
     ) {
         Integer jobSeekerId = user.getId();
-
-        // We route to a new service method that handles "status + title" if both are present,
-        // or either if only one is present
         if (status != null && title != null && !title.isBlank()) {
             return applicationService.getApplicationsByJobSeekerStatusAndTitle(jobSeekerId, status, title, pageable);
         } else if (status != null) {
@@ -55,15 +55,21 @@ public class JobSeekerController {
         }
     }
 
+    /**
+     * Allows the current job seeker to apply for a job.
+     */
     @PostMapping("/applications")
     public ResponseEntity<ApplicationDTO> applyForJob(
             @AuthenticationPrincipal User user,
             @Valid @RequestBody ApplicationDTO applicationDTO) {
-
         applicationDTO.setJobSeekerId(user.getId());
-        return ResponseEntity.ok(applicationService.applyForJob(applicationDTO));
+        ApplicationDTO response = applicationService.applyForJob(applicationDTO);
+        return ResponseEntity.ok(response);
     }
 
+    /**
+     * Retrieves all jobs with optional filters.
+     */
     @GetMapping("/jobs")
     public Page<JobDTO> viewAllJobs(
             @RequestParam(required = false) String title,
@@ -74,6 +80,9 @@ public class JobSeekerController {
                 .map(jobMapper::toDTO);
     }
 
+    /**
+     * Handles resume upload for the job seeker.
+     */
     @PostMapping("/upload-resume")
     public ResponseEntity<String> uploadResume(
             @RequestParam("jobSeekerId") Integer jobSeekerId,
@@ -85,7 +94,6 @@ public class JobSeekerController {
 
         String uploadDir = "uploads/resumes/";
         Path uploadPath = Paths.get(uploadDir);
-
         if (!uploadPath.toFile().exists()) {
             uploadPath.toFile().mkdirs();
         }

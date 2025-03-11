@@ -1,5 +1,6 @@
 package com.lhind.internshipfinalproject;
 
+import com.lhind.internshipfinalproject.dto.UserDTO;
 import com.lhind.internshipfinalproject.mapper.UserMapper;
 import com.lhind.internshipfinalproject.repository.UserRepository;
 import com.lhind.internshipfinalproject.service.UserService;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 
@@ -49,19 +51,17 @@ class UserServiceTest {
 
         @Bean
         public UserService userService(UserRepository userRepository, UserMapper userMapper, PasswordEncoder passwordEncoder) {
-            // Instantiate your UserServiceImpl with all required dependencies.
-            return new UserServiceImpl(userRepository, userMapper, passwordEncoder);
+            // Instantiate UserServiceImpl with the correct order:
+            // (userRepository, passwordEncoder, userMapper)
+            return new UserServiceImpl(userRepository, passwordEncoder, userMapper);
         }
     }
 
-    private final UserRepository userRepository;
-    private final UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
-    // Spring will inject the beans defined in TestConfig
-    public UserServiceTest(UserRepository userRepository, UserService userService) {
-        this.userRepository = userRepository;
-        this.userService = userService;
-    }
+    @Autowired
+    private UserService userService;
 
     @Test
     void testGetAllUsers() {

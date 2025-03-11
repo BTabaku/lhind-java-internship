@@ -11,5 +11,4 @@ class InternshipFinalProjectApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

@@ -8,6 +8,7 @@ import com.lhind.internshipfinalproject.repository.UserRepository;
 import com.lhind.internshipfinalproject.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -16,15 +17,20 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final UserMapper userMapper; // MapStruct mapper
+    private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    // Constructor injection (order: userRepository, passwordEncoder, userMapper)
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
     }
 
     @Override
     public UserDTO registerUser(UserDTO userDTO) {
+        // Optionally, you can encode the password before saving:
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = userMapper.toEntity(userDTO);
         user = userRepository.save(user);
         return userMapper.toDTO(user);
@@ -51,7 +57,8 @@ public class UserServiceImpl implements UserService {
         User existingUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         existingUser.setUsername(userDTO.getUsername());
-        existingUser.setPassword(userDTO.getPassword());
+        // Optionally, encode the password if it is being updated:
+        existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         existingUser.setRole(userDTO.getRole());
         userRepository.save(existingUser);
     }
@@ -59,5 +66,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public UserDTO saveUser(UserDTO userDTO) {
+        return registerUser(userDTO);
     }
 }
