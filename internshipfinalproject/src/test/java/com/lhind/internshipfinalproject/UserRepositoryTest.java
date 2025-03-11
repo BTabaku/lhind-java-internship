@@ -6,10 +6,13 @@ import com.lhind.internshipfinalproject.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@ActiveProfiles("test")
+@SpringBootTest
 public class UserRepositoryTest {
 
     @Autowired
@@ -20,7 +23,7 @@ public class UserRepositoryTest {
         User user = new User();
         user.setUsername("jobseeker");
         user.setPassword("password");
-        user.setRole(Role.JOB_SEEKER); // ✅ Fix case sensitivity issue here
+        user.setRole(Role.JOB_SEEKER);
 
         userRepository.save(user);
 
