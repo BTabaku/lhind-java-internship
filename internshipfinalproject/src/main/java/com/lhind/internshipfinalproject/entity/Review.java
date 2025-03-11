@@ -1,6 +1,5 @@
 package com.lhind.internshipfinalproject.entity;
 
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -8,12 +7,14 @@ import lombok.Data;
 @Data
 @Table(name = "reviews")
 public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "comment")
-    private String comment;
+    // Renamed from `comment` to `content` to match ReviewDto
+    @Column(name = "content")
+    private String content;
 
     @Column(name = "rating")
     private Integer rating;
@@ -23,8 +24,6 @@ public class Review {
     private Job job;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private User employee;
-
-
+    @JoinColumn(name = "employer_id")
+    private User employer;  // "employer" is correct for your domain
 }

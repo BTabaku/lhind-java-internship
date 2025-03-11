@@ -1,0 +1,479 @@
+{
+	"info": {
+		"_postman_id": "f77ce97b-f3c2-48a4-922b-a4130e518022",
+		"name": "JOB_PORTAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41558538"
+	},
+	"item": [
+		{
+			"name": "UserRegistration_admin",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "adminpass",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request type header",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"employer\",\r\n  \"password\": \"employerpass\",\r\n  \"role\": \"EMPLOYER\"\r\n}\r\n\r\n// {\r\n//   \"username\": \"testuser2\",\r\n//   \"password\": \"testpass\",\r\n//   \"role\": \"JOB_SEEKER\"\r\n// }\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ubot202.eastops.nl:9099/api/v1/auth/register",
+					"protocol": "http",
+					"host": [
+						"ubot202",
+						"eastops",
+						"nl"
+					],
+					"port": "9099",
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers_admin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "adminpass",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request type header",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"testuser2\",\r\n  \"password\": \"testpass\",\r\n  \"role\": \"JOB_SEEKER\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ubot202.eastops.nl:9099/api/v1/admin/users",
+					"protocol": "http",
+					"host": [
+						"ubot202",
+						"eastops",
+						"nl"
+					],
+					"port": "9099",
+					"path": [
+						"api",
+						"v1",
+						"admin",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostNewJob_Employee",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "employerpass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "employer",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request type header",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Software Developer\",\r\n  \"description\": \"Looking for a skilled developer.\",\r\n  \"location\": \"New York\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ubot202.eastops.nl:9099/api/v1/employer/jobs",
+					"protocol": "http",
+					"host": [
+						"ubot202",
+						"eastops",
+						"nl"
+					],
+					"port": "9099",
+					"path": [
+						"api",
+						"v1",
+						"employer",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllJobs_Employee",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "employerpass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "employer",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request type header",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Software Developer\",\r\n  \"description\": \"Looking for a skilled developer.\",\r\n  \"location\": \"New York\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ubot202.eastops.nl:9099/api/v1/employer/jobs",
+					"protocol": "http",
+					"host": [
+						"ubot202",
+						"eastops",
+						"nl"
+					],
+					"port": "9099",
+					"path": [
+						"api",
+						"v1",
+						"employer",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ApplyForAJob_jobseeker",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "testpass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testuser2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request type header",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"jobId\": 6,\r\n  \"status\": \"PENDING\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ubot202.eastops.nl:9099/api/v1/jobseeker/applications",
+					"protocol": "http",
+					"host": [
+						"ubot202",
+						"eastops",
+						"nl"
+					],
+					"port": "9099",
+					"path": [
+						"api",
+						"v1",
+						"jobseeker",
+						"applications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewApplication_update_Employee",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "employerpass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "employer",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request type header",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"jobId\": 6,\r\n  \"status\": \"PENDING\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ubot202.eastops.nl:9099/api/v1/employer/jobs/6/applications?status=PENDING",
+					"protocol": "http",
+					"host": [
+						"ubot202",
+						"eastops",
+						"nl"
+					],
+					"port": "9099",
+					"path": [
+						"api",
+						"v1",
+						"employer",
+						"jobs",
+						"6",
+						"applications"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "PENDING"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateApplicationStatus_Employee",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "employerpass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "employer",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request type header",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://ubot202.eastops.nl:9099/api/v1/employer/applications/6/status?status=APPROVED",
+					"protocol": "http",
+					"host": [
+						"ubot202",
+						"eastops",
+						"nl"
+					],
+					"port": "9099",
+					"path": [
+						"api",
+						"v1",
+						"employer",
+						"applications",
+						"6",
+						"status"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "APPROVED"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UploadResume_jobseeker",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "testpass",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "testuser2",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "postman-cloud:///1effe90f-0606-4690-886b-ced0f6fb6c4d"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://ubot202.eastops.nl:9099/api/v1/jobseeker/upload-resume",
+					"protocol": "http",
+					"host": [
+						"ubot202",
+						"eastops",
+						"nl"
+					],
+					"port": "9099",
+					"path": [
+						"api",
+						"v1",
+						"jobseeker",
+						"upload-resume"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
