@@ -1,7 +1,6 @@
 package com.lhind.internshipfinalproject.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -22,7 +21,7 @@ public class JobDTO {
     @NotBlank(message = "Location is required")
     private String location;
 
-    @NotNull(message = "Employer ID is required")
+    // Removed validation constraint because this is set automatically in the controller.
     private Integer employerId;
 
     private LocalDateTime createdAt;

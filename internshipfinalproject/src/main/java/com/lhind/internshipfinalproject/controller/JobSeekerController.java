@@ -5,6 +5,7 @@ import com.lhind.internshipfinalproject.dto.JobDTO;
 import com.lhind.internshipfinalproject.entity.User;
 import com.lhind.internshipfinalproject.enums.ApplicationStatus;
 import com.lhind.internshipfinalproject.mapper.JobMapper;
+import com.lhind.internshipfinalproject.repository.UserRepository;
 import com.lhind.internshipfinalproject.service.ApplicationService;
 import com.lhind.internshipfinalproject.service.JobService;
 import jakarta.validation.Valid;
@@ -31,19 +32,21 @@ public class JobSeekerController {
     private final ApplicationService applicationService;
     private final JobService jobService;
     private final JobMapper jobMapper;
+    private final UserRepository userRepository;
 
-    /**
-     * Retrieve the current job seeker's applications with optional filters.
-     * If both status and title are provided, the service returns applications matching both criteria.
-     */
     @GetMapping("/applications")
     public Page<ApplicationDTO> getMyApplications(
-            @AuthenticationPrincipal User user,
+            // Use the fully qualified class name for the security principal
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal,
             @RequestParam(required = false) ApplicationStatus status,
             @RequestParam(required = false) String title,
             Pageable pageable
     ) {
+        // Lookup the full user entity from the username provided by the security principal
+        User user = userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
         Integer jobSeekerId = user.getId();
+
         if (status != null && title != null && !title.isBlank()) {
             return applicationService.getApplicationsByJobSeekerStatusAndTitle(jobSeekerId, status, title, pageable);
         } else if (status != null) {
@@ -55,21 +58,18 @@ public class JobSeekerController {
         }
     }
 
-    /**
-     * Allows the current job seeker to apply for a job.
-     */
     @PostMapping("/applications")
     public ResponseEntity<ApplicationDTO> applyForJob(
-            @AuthenticationPrincipal User user,
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal,
             @Valid @RequestBody ApplicationDTO applicationDTO) {
+
+        // Lookup the full user entity from the username provided by the security principal
+        User user = userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
         applicationDTO.setJobSeekerId(user.getId());
-        ApplicationDTO response = applicationService.applyForJob(applicationDTO);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(applicationService.applyForJob(applicationDTO));
     }
 
-    /**
-     * Retrieves all jobs with optional filters.
-     */
     @GetMapping("/jobs")
     public Page<JobDTO> viewAllJobs(
             @RequestParam(required = false) String title,
@@ -80,9 +80,6 @@ public class JobSeekerController {
                 .map(jobMapper::toDTO);
     }
 
-    /**
-     * Handles resume upload for the job seeker.
-     */
     @PostMapping("/upload-resume")
     public ResponseEntity<String> uploadResume(
             @RequestParam("jobSeekerId") Integer jobSeekerId,

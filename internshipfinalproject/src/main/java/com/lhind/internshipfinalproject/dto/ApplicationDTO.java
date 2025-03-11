@@ -8,7 +8,7 @@ public class ApplicationDTO {
     @NotNull(message = "Job ID is required")
     private Integer jobId;
 
-    @NotNull(message = "Job Seeker ID is required")
+    // Removed the @NotNull annotation for jobSeekerId since it's set by the controller.
     private Integer jobSeekerId;
 
     private ApplicationStatus status;

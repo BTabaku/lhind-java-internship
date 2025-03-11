@@ -6,6 +6,7 @@ import com.lhind.internshipfinalproject.entity.Job;
 import com.lhind.internshipfinalproject.entity.User;
 import com.lhind.internshipfinalproject.enums.ApplicationStatus;
 import com.lhind.internshipfinalproject.mapper.JobMapper;
+import com.lhind.internshipfinalproject.repository.UserRepository;
 import com.lhind.internshipfinalproject.service.ApplicationService;
 import com.lhind.internshipfinalproject.service.JobService;
 import com.lhind.internshipfinalproject.service.ReviewService;
@@ -26,16 +27,34 @@ public class EmployerController {
     private final JobMapper jobMapper;
     private final ApplicationService applicationService;
     private final ReviewService reviewService;
+    private final UserRepository userRepository;
 
     @GetMapping("/jobs")
     public ResponseEntity<Page<JobDTO>> getEmployerJobs(
-            @AuthenticationPrincipal User user,
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal,
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String location,
             Pageable pageable) {
-        Page<JobDTO> jobs = jobService.getJobsByEmployer(user.getId(), title, location, pageable)
+        // Lookup the full User (employer) entity from the username provided by the security principal
+        User employer = userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        Page<JobDTO> jobs = jobService.getJobsByEmployer(employer.getId(), title, location, pageable)
                 .map(jobMapper::toDTO);
         return ResponseEntity.ok(jobs);
+    }
+
+    @PostMapping("/jobs")
+    public ResponseEntity<JobDTO> postJob(
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal,
+            @Valid @RequestBody JobDTO jobDTO) {
+        // Lookup the full User (employer) entity
+        User employer = userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        // Set the employerId in the DTO so that the service layer can use it
+        jobDTO.setEmployerId(employer.getId());
+        Job job = jobMapper.toEntity(jobDTO);
+        Job savedJob = jobService.saveJob(job);
+        return ResponseEntity.ok(jobMapper.toDTO(savedJob));
     }
 
     @GetMapping("/jobs/{jobId}/applications")
@@ -47,22 +66,15 @@ public class EmployerController {
         return ResponseEntity.ok(applications);
     }
 
-    @PostMapping("/jobs")
-    public ResponseEntity<JobDTO> postJob(
-            @AuthenticationPrincipal User user,
-            @Valid @RequestBody JobDTO jobDTO) {
-        jobDTO.setEmployerId(user.getId());
-        Job job = jobMapper.toEntity(jobDTO);
-        Job savedJob = jobService.saveJob(job);
-        return ResponseEntity.ok(jobMapper.toDTO(savedJob));
-    }
-
     @PutMapping("/applications/{applicationId}/status")
     public ResponseEntity<ApplicationDTO> updateApplicationStatus(
             @PathVariable Integer applicationId,
             @RequestParam ApplicationStatus status,
-            @AuthenticationPrincipal User user) {
-        ApplicationDTO updatedApplication = applicationService.updateApplicationStatus(applicationId, status, user.getId());
+            @AuthenticationPrincipal org.springframework.security.core.userdetails.User principal) {
+        // Lookup the full User (employer) entity
+        User employer = userRepository.findByUsername(principal.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        ApplicationDTO updatedApplication = applicationService.updateApplicationStatus(applicationId, status, employer.getId());
         return ResponseEntity.ok(updatedApplication);
     }
 }
