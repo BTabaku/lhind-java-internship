@@ -19,21 +19,29 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final JobRepository jobRepository;
     private final UserRepository userRepository;
-    private final ReviewMapper reviewMapper; // Properly injected
+    private final ReviewMapper reviewMapper;
 
+    // Existing method
+    public Page<ReviewDto> getReviews(Integer jobId, Integer rating, Pageable pageable) {
+        return reviewRepository.findReviewsByJobAndRating(jobId, rating, pageable)
+                .map(reviewMapper::toDTO);
+    }
+
+    // NEW OR UPDATED method to add a review
     public ReviewDto addReview(Integer jobId, ReviewDto reviewDto, User employer) {
         Job job = jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found"));
 
+        // Make sure this job belongs to the current employer
+        if (!job.getEmployer().getId().equals(employer.getId())) {
+            throw new RuntimeException("Unauthorized: you can only review jobs that you posted.");
+        }
+
         Review review = reviewMapper.toEntity(reviewDto);
         review.setJob(job);
-        review.setEmployer(employer); // Set the employer instead of employee
+        review.setEmployer(employer);  // Link the user (employer) to this review
 
-        return reviewMapper.toDTO(reviewRepository.save(review));
-    }
-
-    public Page<ReviewDto> getReviews(Integer jobId, Integer rating, Pageable pageable) {
-        return reviewRepository.findReviewsByJobAndRating(jobId, rating, pageable)
-                .map(reviewMapper::toDTO);
+        Review saved = reviewRepository.save(review);
+        return reviewMapper.toDTO(saved);
     }
 }

@@ -20,24 +20,25 @@ public abstract class ReviewMapper {
     @Autowired
     protected UserRepository userRepository;
 
-    // Map Review entity to ReviewDto
+    // Entity → DTO
     @Mapping(target = "jobId", source = "job.id")
     @Mapping(target = "employerId", source = "employer.id")
+    @Mapping(target = "content", source = "content")  // renamed
     public abstract ReviewDto toDTO(Review review);
 
-    // Map ReviewDto to Review entity with custom fetch logic
+    // DTO → Entity
     @Mapping(target = "job", source = "jobId", qualifiedByName = "mapJobIdToJob")
     @Mapping(target = "employer", source = "employerId", qualifiedByName = "mapEmployerIdToUser")
+    @Mapping(target = "content", source = "content")  // renamed
     public abstract Review toEntity(ReviewDto reviewDto);
 
-    // Fetch Job from jobId
+    // Helpers
     @Named("mapJobIdToJob")
     protected Job mapJobIdToJob(Integer jobId) {
         return jobRepository.findById(jobId)
                 .orElseThrow(() -> new RuntimeException("Job not found with id: " + jobId));
     }
 
-    // Fetch User from employerId
     @Named("mapEmployerIdToUser")
     protected User mapEmployerIdToUser(Integer employerId) {
         return userRepository.findById(employerId)

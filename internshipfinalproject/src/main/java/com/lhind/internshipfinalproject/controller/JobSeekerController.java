@@ -34,15 +34,25 @@ public class JobSeekerController {
 
     @GetMapping("/applications")
     public Page<ApplicationDTO> getMyApplications(
-            @AuthenticationPrincipal User user, // Get jobSeekerId from authenticated user
+            @AuthenticationPrincipal User user,
             @RequestParam(required = false) ApplicationStatus status,
+            // NEW: also filter by job title
+            @RequestParam(required = false) String title,
             Pageable pageable
     ) {
         Integer jobSeekerId = user.getId();
-        if (status != null) {
+
+        // We route to a new service method that handles "status + title" if both are present,
+        // or either if only one is present
+        if (status != null && title != null && !title.isBlank()) {
+            return applicationService.getApplicationsByJobSeekerStatusAndTitle(jobSeekerId, status, title, pageable);
+        } else if (status != null) {
             return applicationService.getApplicationsByJobSeekerAndStatus(jobSeekerId, status, pageable);
+        } else if (title != null && !title.isBlank()) {
+            return applicationService.getApplicationsByJobSeekerAndTitle(jobSeekerId, title, pageable);
+        } else {
+            return applicationService.getApplicationsByJobSeeker(jobSeekerId, pageable);
         }
-        return applicationService.getApplicationsByJobSeeker(jobSeekerId, pageable);
     }
 
     @PostMapping("/applications")
@@ -56,12 +66,10 @@ public class JobSeekerController {
 
     @GetMapping("/jobs")
     public Page<JobDTO> viewAllJobs(
-
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String location,
             @RequestParam(required = false) String employer,
             Pageable pageable) {
-
         return jobService.searchJobs(title, location, employer, pageable)
                 .map(jobMapper::toDTO);
     }
@@ -78,7 +86,6 @@ public class JobSeekerController {
         String uploadDir = "uploads/resumes/";
         Path uploadPath = Paths.get(uploadDir);
 
-        // Ensure the directory exists
         if (!uploadPath.toFile().exists()) {
             uploadPath.toFile().mkdirs();
         }
@@ -88,7 +95,6 @@ public class JobSeekerController {
         file.transferTo(destFile);
 
         log.info("Resume uploaded successfully: {}", destFile.getAbsolutePath());
-
         return ResponseEntity.ok("Resume uploaded successfully");
     }
 }

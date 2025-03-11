@@ -1,139 +1,86 @@
-Let's clean up and update the `README.md` file with more organized and clearer instructions:
+# Job Portal API LHIND Internship
 
-```markdown
-# Job Portal API
+A Spring Boot application that provides role-based functionality for a simple job portal.  
+**Roles**:  
+- `ADMIN` – Manage (view/delete) users  
+- `EMPLOYER` – Post jobs, view/update applications for their jobs, add reviews  
+- `JOB_SEEKER` – View jobs, apply for jobs, upload resumes, view own applications  
 
-## Getting Started
+## 1. Tech Stack
 
-### Port Management
-To check and kill a process using port 9099:
+- **Spring Boot** (2.x or 3.x)
+- **Spring Data JPA** (Hibernate)
+- **MySQL** (JDBC Driver)
+- **Spring Security** (Basic Auth)
+- **MapStruct** (for DTO mapping)
+- **JUnit & Mockito** (for tests)
+
+## 2. Setup Instructions
+
+1. **Clone** the repository:
+   ```bash
+   git clone <YOUR-REPO-URL>
+   cd internshipfinalproject
+   ```
+2. **Configure MySQL** in `src/main/resources/application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:mysql://<HOST>:<PORT>/<DB_NAME>?createDatabaseIfNotExist=true
+   spring.datasource.username=<YOUR_DB_USER>
+   spring.datasource.password=<YOUR_DB_PASSWORD>
+   ```
+   Adjust server port if needed (`server.port=9099`).
+
+3. **Build and Run**:
+   ```bash
+   mvn clean install
+   mvn spring-boot:run
+   ```
+   The application will start on [http://localhost:9099](http://localhost:9099/).
+
+4. **Database**:
+    - Once running, the project will auto-create/update the schema (`spring.jpa.hibernate.ddl-auto=update`) if the database doesn’t exist.
+
+5. **Basic Auth**:
+    - Endpoints are secured by role. You can register new users at `/api/v1/auth/register` or seed the DB manually.
+    - Use the credentials you create to authenticate. For example, `ROLE_ADMIN` => `admin:adminpass`, etc.
+
+## 3. API Endpoints
+
+Below is an overview of the available endpoints. Use Basic Auth with the correct role to access each:
+
+### Admin
+- **GET** `/api/v1/admin/users` – List all users (optional `role` param).
+- **DELETE** `/api/v1/admin/users/{id}` – Delete a user.
+
+### Employer
+- **GET** `/api/v1/employer/jobs?title=&location=` – List employer’s posted jobs (filter optional).
+- **POST** `/api/v1/employer/jobs` – Post a new job.
+- **GET** `/api/v1/employer/jobs/{jobId}/applications?status=` – Get applications for a specific job.
+- **PUT** `/api/v1/employer/applications/{applicationId}/status?status=` – Update application status.
+- **POST** `/api/v1/employer/reviews/jobs/{jobId}` – Add a review for a job you posted.
+
+### Job Seeker
+- **GET** `/api/v1/jobseeker/jobs?title=&location=&employer=` – View all jobs (filters optional).
+- **POST** `/api/v1/jobseeker/applications` – Apply for a job.
+- **GET** `/api/v1/jobseeker/applications?status=&title=` – View own applications (filters optional).
+- **POST** `/api/v1/jobseeker/upload-resume` – Upload a resume for your user ID.
+
+### Auth
+- **POST** `/api/v1/auth/register` – Register a new user (Admin, Employer, or Job Seeker).
+
+### Reviews
+- **GET** `/api/v1/employer/reviews?jobId=&rating=` – Filter reviews by job ID or rating.
+
+## 4. Postman Collection
+
+- A sample Postman collection can be found under `postman/JobPortal.postman_collection.json` (example path).
+- Import the collection into Postman, update the Basic Auth credentials in the “Authorization” tab for each request, and test away.
+
+## 5. Port Management & Troubleshooting
+
+If port `9099` is in use:
 ```bash
 sudo lsof -i :9099
 sudo kill -9 <PID>
 ```
-
-### Authentication Steps
-
-1. Register Admin User:
-```bash
-curl -i -X POST \
-  http://localhost:9099/auth/register \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "username": "admin",
-    "password": "admin123",
-    "role": "ADMIN"
-}'
-```
-
-2. Register Employer:
-```bash
-curl -i -X POST \
-  http://localhost:9099/auth/register \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "username": "employer",
-    "password": "employer123",
-    "role": "EMPLOYER"
-}'
-```
-
-3. Register Job Seeker:
-```bash
-curl -i -X POST \
-  http://localhost:9099/auth/register \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "username": "jobseeker",
-    "password": "jobseeker123",
-    "role": "JOB_SEEKER"
-}'
-```
-
-### Testing Protected Endpoints
-
-#### Admin Operations
-1. Test Admin Access:
-```bash
-curl -i -X GET \
-  http://localhost:9099/admin/ \
-  --user admin:admin123
-```
-
-2. Create Job Category:
-```bash
-curl -i -X POST \
-  http://localhost:9099/admin/categories \
-  --user admin:admin123 \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "name": "Software Development",
-    "description": "Programming and software engineering positions"
-}'
-```
-
-#### Employer Operations
-1. Test Employer Access:
-```bash
-curl -i -X GET \
-  http://localhost:9099/employer/ \
-  --user employer:employer123
-```
-
-2. Create Job Posting:
-```bash
-curl -i -X POST \
-  http://localhost:9099/employer/jobs \
-  --user employer:employer123 \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "title": "Java Developer",
-    "description": "Looking for Java developer",
-    "requirements": "Java, Spring Boot experience",
-    "categoryId": 1,
-    "salary": 50000,
-    "location": "Amsterdam"
-}'
-```
-
-#### Job Seeker Operations
-1. Test Job Seeker Access:
-```bash
-curl -i -X GET \
-  http://localhost:9099/jobseeker/ \
-  --user jobseeker:jobseeker123
-```
-
-2. Search Jobs:
-```bash
-curl -i -X GET \
-  http://localhost:9099/jobseeker/jobs/search?keyword=Java \
-  --user jobseeker:jobseeker123
-```
-
-3. Apply for Job:
-```bash
-curl -i -X POST \
-  http://localhost:9099/jobseeker/jobs/1/apply \
-  --user jobseeker:jobseeker123 \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'resume=@path/to/resume.pdf' \
-  -F 'coverLetter=Interested in this position'
-```
-
-### Troubleshooting
-
-If you receive 401 errors, try resetting the password:
-```bash
-curl -i -X PUT \
-  http://localhost:9099/auth/reset-password \
-  -H 'Content-Type: application/json' \
-  -d '{
-    "username": "username",
-    "oldPassword": "oldpassword",
-    "newPassword": "newpassword"
-}'
-```
-
-Note: Replace placeholder values (usernames, passwords, file paths) with actual values when testing.
-```
+Then re-run `mvn spring-boot:run`.

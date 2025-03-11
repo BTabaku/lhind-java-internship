@@ -15,10 +15,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
 @Service
 @RequiredArgsConstructor
 public class ApplicationService {
+
     private final ApplicationRepository applicationRepository;
     private final ApplicationMapper applicationMapper;
     private final JobRepository jobRepository;
@@ -26,7 +26,7 @@ public class ApplicationService {
 
     @Transactional
     public ApplicationDTO applyForJob(ApplicationDTO applicationDTO) {
-        // Validate job and job-seeker exist
+        // Existing logic unchanged
         Job job = jobRepository.findById(applicationDTO.getJobId())
                 .orElseThrow(() -> new RuntimeException("Job not found"));
         User jobSeeker = userRepository.findById(applicationDTO.getJobSeekerId())
@@ -41,16 +41,36 @@ public class ApplicationService {
         return applicationMapper.toDTO(savedApplication);
     }
 
+    // Existing method
+    public Page<ApplicationDTO> getApplicationsByJobSeeker(Integer jobSeekerId, Pageable pageable) {
+        return applicationRepository.findByJobSeekerId(jobSeekerId, pageable)
+                .map(applicationMapper::toDTO);
+    }
+
+    // Existing method
+    public Page<ApplicationDTO> getApplicationsByJobSeekerAndStatus(Integer jobSeekerId, ApplicationStatus status, Pageable pageable) {
+        return applicationRepository.findByJobSeekerIdAndStatus(jobSeekerId, status, pageable)
+                .map(applicationMapper::toDTO);
+    }
+
+    // NEW: filter by jobSeeker + jobTitle
+    public Page<ApplicationDTO> getApplicationsByJobSeekerAndTitle(Integer jobSeekerId, String title, Pageable pageable) {
+        return applicationRepository.findByJobSeekerIdAndJobTitle(jobSeekerId, title, pageable)
+                .map(applicationMapper::toDTO);
+    }
+
+    // NEW: filter by jobSeeker + status + jobTitle
+    public Page<ApplicationDTO> getApplicationsByJobSeekerStatusAndTitle(Integer jobSeekerId, ApplicationStatus status, String title, Pageable pageable) {
+        return applicationRepository.findByJobSeekerIdAndStatusAndJobTitle(jobSeekerId, status, title, pageable)
+                .map(applicationMapper::toDTO);
+    }
+
     @Transactional
-    public ApplicationDTO updateApplicationStatus(
-            Integer applicationId,
-            ApplicationStatus status,
-            Integer employerId // Added employer ID for authorization
-    ) {
+    public ApplicationDTO updateApplicationStatus(Integer applicationId, ApplicationStatus status, Integer employerId) {
+        // Unchanged logic
         Application application = applicationRepository.findById(applicationId)
                 .orElseThrow(() -> new RuntimeException("Application not found"));
 
-        // Verify employer owns the job
         if (!application.getJob().getEmployer().getId().equals(employerId)) {
             throw new RuntimeException("Unauthorized to update this application");
         }
@@ -59,26 +79,9 @@ public class ApplicationService {
         return applicationMapper.toDTO(applicationRepository.save(application));
     }
 
-    public Page<ApplicationDTO> getApplicationsByJobAndStatus(
-            Integer jobId,
-            ApplicationStatus status,
-            Pageable pageable
-    ) {
+    public Page<ApplicationDTO> getApplicationsByJobAndStatus(Integer jobId, ApplicationStatus status, Pageable pageable) {
+        // existing method
         return applicationRepository.getApplicationsByJobAndStatus(jobId, status, pageable)
-                .map(applicationMapper::toDTO);
-    }
-
-    public Page<ApplicationDTO> getApplicationsByJobSeeker(Integer jobSeekerId, Pageable pageable) {
-        return applicationRepository.findByJobSeekerId(jobSeekerId, pageable)
-                .map(applicationMapper::toDTO);
-    }
-
-    public Page<ApplicationDTO> getApplicationsByJobSeekerAndStatus(
-            Integer jobSeekerId,
-            ApplicationStatus status,
-            Pageable pageable
-    ) {
-        return applicationRepository.findByJobSeekerIdAndStatus(jobSeekerId, status, pageable)
                 .map(applicationMapper::toDTO);
     }
 }
